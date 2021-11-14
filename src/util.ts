@@ -16,11 +16,12 @@ function createNewBirth(): Ibirth {
     };
 }
 
-function hidePass(pass: string): void {
+function hidePass(pass: string): string {
+    let secretPass: string = "";
     for (let char of pass) {
-        char = "*";
+        secretPass += "*";
     }
-    return;
+    return secretPass;
 }
 
 function fetchAccount(name: string): any {
