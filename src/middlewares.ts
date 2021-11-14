@@ -1,7 +1,6 @@
 import { fetchAccount, Iuser } from "./util";
 import { database } from "./data";
 import { Request, Response, NextFunction } from "express";
-import { v4 as uuidv4 } from "uuid";
 
 // middlewares para as rotas
 

@@ -1,4 +1,4 @@
-import { userId, taskId, userIdPlus, taskIdPlus, database } from "./data";
+import { userId, taskId, database } from "./data";
 
 // let name = document.getElementById("name");
 // let pass = document.getElementById("pass");

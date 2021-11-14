@@ -23,8 +23,6 @@ route.get("/index", midVerifyNameAndPass, midVerifyAccount, (req: any, res: any)
             pass: hidePass(pass),
         },
     });
-
-    window.location.assign("taskList.html");
 });
 
 route.post("/create/", midVerifyNameAndPass, midVerifyRPass, midVerifyLenghtAndAvailability, (req: any, res: any) => {
