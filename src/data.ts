@@ -46,4 +46,13 @@ function logOutUser(): void {
     return;
 }
 
-export { userId, taskId, database, loggedUser, userIdPlus, taskIdPlus, databaseIncrement, logInUser, logOutUser };
+function devSpy() {
+    return {
+        userId,
+        taskId,
+        loggedUser,
+        database,
+    };
+}
+
+export { userId, taskId, database, loggedUser, userIdPlus, taskIdPlus, databaseIncrement, logInUser, logOutUser, devSpy };

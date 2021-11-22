@@ -1,6 +1,6 @@
 import { midVerifyNameAndPass, midVerifyRPass, midVerifyAccount, midVerifyLenghtAndAvailability } from "./middlewares";
 import { Cuser, hidePass, fetchAccount, Iuser } from "./util";
-import { database, databaseIncrement, userIdPlus, logInUser, logOutUser } from "./data";
+import { database, databaseIncrement, userIdPlus, logInUser, logOutUser, devSpy } from "./data";
 
 import express from "express";
 var route = express.Router();
@@ -41,6 +41,13 @@ route.post("/create/", midVerifyNameAndPass, midVerifyRPass, midVerifyLenghtAndA
             pass: hidePass(pass),
             creationDate: newAcc.birth.message,
         },
+    });
+});
+
+route.get("/dev", (req: any, res: any) => {
+    res.status(200).send({
+        mensagem: `Verificando database`,
+        dados: devSpy(),
     });
 });
 
