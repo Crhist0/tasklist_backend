@@ -1,5 +1,5 @@
 import { midVerifyNameAndPass, midVerifyRPass, midVerifyAccount, midVerifyLenghtAndAvailability } from "./middlewares";
-import { Cuser, hidePass, fetchAccount, Iuser } from "./util";
+import { Cuser, hidePass, fetchAccount, Iuser, spyApi } from "./util";
 import { database, databaseIncrement, userIdPlus, logInUser, logOutUser, devSpy } from "./data";
 
 import express from "express";
@@ -26,6 +26,7 @@ route.get("/index", midVerifyNameAndPass, midVerifyAccount, (req: any, res: any)
 });
 
 route.post("/create/", midVerifyNameAndPass, midVerifyRPass, midVerifyLenghtAndAvailability, (req: any, res: any) => {
+    spyApi(req);
     console.log("entrou na rota");
     let name = req.body.name as string;
     let pass = req.body.pass as string;

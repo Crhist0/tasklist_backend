@@ -1,4 +1,5 @@
 import { userId, taskId, database } from "./data";
+import { Request } from "express";
 
 // let name = document.getElementById("name");
 // let pass = document.getElementById("pass");
@@ -33,6 +34,10 @@ function fetchAccount(name: string): any {
     return;
 }
 
+function spyApi(req: Request) {
+    console.log(`O usuário de IP "${req.ip}" interagiu via "${req.method}" na URL "${req.url}${req.path}" por protocolo "${req.protocol}",
+        Code: ${req.statusCode} - Message: ${req.statusMessage} - Complete: ${req.complete}`);
+}
 // interfaces
 
 interface Ilogin {
@@ -96,4 +101,4 @@ class Ctask implements Itask {
     }
 }
 
-export { Iuser, Cuser, ILuser, hidePass, fetchAccount };
+export { Iuser, Cuser, ILuser, hidePass, fetchAccount, spyApi };
