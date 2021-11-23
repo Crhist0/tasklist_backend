@@ -10,7 +10,7 @@ let midVerifyNameAndPass = (req: Request, res: Response, next: NextFunction) => 
     let pass = req.body.pass as string;
     console.log(`
     name: ${name}
-    pass: ${pass}`);
+    pass: ${pass == "" ? 0 : pass}`);
 
     // verifica se os campos name e pass foram preenchidos
 
@@ -24,7 +24,7 @@ let midVerifyNameAndPass = (req: Request, res: Response, next: NextFunction) => 
             mensagem: `Informe um nome.`,
         });
     }
-    if (!pass || pass == "") {
+    if (!pass) {
         res.status(400).send({
             mensagem: `Informe uma senha.`,
         });
