@@ -124,6 +124,7 @@ let FUNmidPassAlreadyExists = (req: Request, res: Response, next: NextFunction) 
             });
         }
     }
+    next();
 };
 
 export { midVerifyNameAndPass, midVerifyRPass, midVerifyAccount, midVerifyLenghtAndAvailability, FUNmidPassAlreadyExists };
