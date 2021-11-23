@@ -5,22 +5,26 @@ import { Request, Response, NextFunction } from "express";
 // middlewares para as rotas
 
 let midVerifyNameAndPass = (req: Request, res: Response, next: NextFunction) => {
+    console.log("entrou no 'midVerifyNameAndPass'");
     let name = req.body.name as string;
     let pass = req.body.pass as string;
+    console.log(`
+    name: ${name}
+    pass: ${pass}`);
 
     // verifica se os campos name e pass foram preenchidos
 
-    if (!req.body.name && !req.body.pass) {
+    if (!name && !pass) {
         res.status(400).send({
             mensagem: `Informe um nome e uma senha.`,
         });
     }
-    if (!req.body.name) {
+    if (!name) {
         res.status(400).send({
             mensagem: `Informe um nome.`,
         });
     }
-    if (!req.body.pass) {
+    if (!pass) {
         res.status(400).send({
             mensagem: `Informe uma senha.`,
         });
@@ -29,8 +33,13 @@ let midVerifyNameAndPass = (req: Request, res: Response, next: NextFunction) => 
 };
 
 let midVerifyRPass = (req: Request, res: Response, next: NextFunction) => {
+    console.log("entrou no 'midVerifyRPass'");
     let pass = req.body.pass as string;
     let Rpass = req.body.Rpass as string;
+    console.log(`
+    pass: ${pass}
+    Rpass: ${Rpass}
+    `);
 
     // verifica se os campos Rpass foi preenchido corretamente
     if (!Rpass) {
@@ -48,11 +57,15 @@ let midVerifyRPass = (req: Request, res: Response, next: NextFunction) => {
 };
 
 let midVerifyAccount = (req: Request, res: Response, next: NextFunction) => {
+    console.log("entrou no 'midVerifyAccount'");
     let name = req.body.name as string;
     let pass = req.body.pass as string;
-
+    console.log(`
+    name: ${name}
+    pass: ${pass}
+    `);
     let user: Iuser = fetchAccount(name);
-
+    console.log(user);
     // verifica se o usuário existe
     if (!user) {
         return res.status(404).send({
@@ -71,9 +84,13 @@ let midVerifyAccount = (req: Request, res: Response, next: NextFunction) => {
 };
 
 let midVerifyLenghtAndAvailability = (req: Request, res: Response, next: NextFunction) => {
+    console.log("entrou no 'midVerifyLenghtAndAvailability'");
     let name = req.body.name as string;
     let pass = req.body.pass as string;
-
+    console.log(`
+    name: ${name}
+    pass: ${pass}
+    `);
     // teste nome minimo 3 char
     if (Array.from(name).length < 3) {
         return res.status(400).send({

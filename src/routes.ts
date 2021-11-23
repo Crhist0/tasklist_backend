@@ -26,10 +26,15 @@ route.get("/index", midVerifyNameAndPass, midVerifyAccount, (req: any, res: any)
 });
 
 route.post("/create/", midVerifyNameAndPass, midVerifyRPass, midVerifyLenghtAndAvailability, (req: any, res: any) => {
+    console.log("entrou na rota");
     let name = req.body.name as string;
     let pass = req.body.pass as string;
+    console.log(`
+    name: ${name}
+    pass: ${pass}`);
 
     let newAcc = new Cuser(name, pass);
+    console.log(newAcc);
     databaseIncrement(newAcc);
     userIdPlus();
 
@@ -50,5 +55,7 @@ route.get("/dev", (req: any, res: any) => {
         dados: devSpy(),
     });
 });
+
+// route.delete("")
 
 export { route };
