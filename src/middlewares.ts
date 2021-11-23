@@ -15,17 +15,17 @@ let midVerifyNameAndPass = (req: Request, res: Response, next: NextFunction) => 
     // verifica se os campos name e pass foram preenchidos
 
     if (!name && !pass) {
-        res.status(400).send({
+        return res.status(400).send({
             mensagem: `Informe um nome e uma senha.`,
         });
     }
     if (!name) {
-        res.status(400).send({
+        return res.status(400).send({
             mensagem: `Informe um nome.`,
         });
     }
     if (!pass) {
-        res.status(400).send({
+        return res.status(400).send({
             mensagem: `Informe uma senha.`,
         });
     }
