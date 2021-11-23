@@ -24,7 +24,7 @@ let midVerifyNameAndPass = (req: Request, res: Response, next: NextFunction) => 
             mensagem: `Informe um nome.`,
         });
     }
-    if (!pass) {
+    if (!pass || pass == "") {
         res.status(400).send({
             mensagem: `Informe uma senha.`,
         });
