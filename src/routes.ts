@@ -1,4 +1,4 @@
-import { midVerifyNameAndPass, midVerifyRPass, midVerifyAccount, midVerifyLenghtAndAvailability } from "./middlewares";
+import { midVerifyNameAndPass, midVerifyRPass, midVerifyAccount, midVerifyLenghtAndAvailability, FUNmidPassAlreadyExists } from "./middlewares";
 import { Cuser, hidePass, fetchAccount, Iuser, spyApi } from "./util";
 import { database, databaseIncrement, userIdPlus, logInUser, logOutUser, devSpy } from "./data";
 
@@ -7,7 +7,7 @@ var route = express.Router();
 
 // rotas
 
-route.get("/index", midVerifyNameAndPass, midVerifyAccount, (req: any, res: any) => {
+route.get("/login", midVerifyNameAndPass, midVerifyAccount, (req: any, res: any) => {
     let name = req.body.name as string;
     let pass = req.body.pass as string;
 
@@ -25,7 +25,7 @@ route.get("/index", midVerifyNameAndPass, midVerifyAccount, (req: any, res: any)
     });
 });
 
-route.post("/create/", midVerifyNameAndPass, midVerifyRPass, midVerifyLenghtAndAvailability, (req: any, res: any) => {
+route.post("/create/", midVerifyNameAndPass, midVerifyRPass, midVerifyLenghtAndAvailability, FUNmidPassAlreadyExists, (req: any, res: any) => {
     spyApi(req);
     console.log("entrou na rota");
     let name = req.body.name as string;

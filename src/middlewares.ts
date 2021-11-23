@@ -115,4 +115,15 @@ let midVerifyLenghtAndAvailability = (req: Request, res: Response, next: NextFun
     next();
 };
 
-export { midVerifyNameAndPass, midVerifyRPass, midVerifyAccount, midVerifyLenghtAndAvailability };
+let FUNmidPassAlreadyExists = (req: Request, res: Response, next: NextFunction) => {
+    let pass = req.body.pass as string;
+    for (const user of database) {
+        if (user.pass == pass) {
+            return res.status(418).send({
+                mensagem: `A senha informada já está sendo utilizada por ${user.name}.`,
+            });
+        }
+    }
+};
+
+export { midVerifyNameAndPass, midVerifyRPass, midVerifyAccount, midVerifyLenghtAndAvailability, FUNmidPassAlreadyExists };
