@@ -12,7 +12,18 @@ let database: Iuser[] = [
         },
         name: "admin",
         pass: "admin",
-        taskList: [],
+        taskList: [
+            {
+                id: 0,
+                description: "description test 0",
+                detail: "detail test 0",
+            },
+            {
+                id: 1,
+                description: "description test 1",
+                detail: "detail test 1",
+            },
+        ],
     },
 ];
 function databaseIncrement(newUser: Iuser): void {
