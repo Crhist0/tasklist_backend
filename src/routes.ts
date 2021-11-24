@@ -11,7 +11,7 @@ let MidsAccCreation = [midVerifyNameAndPass, midVerifyRPass, midVerifyLenghtAndA
 let MidsLogin = [midVerifyNameAndPass, midVerifyAccount];
 // rotas
 
-route.get("/login", MidsLogin, (req: any, res: any) => {
+route.post("/login", MidsLogin, (req: any, res: any) => {
     let name = req.body.name as string;
     let pass = req.body.pass as string;
 
