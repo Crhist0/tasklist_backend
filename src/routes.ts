@@ -5,9 +5,13 @@ import { database, databaseIncrement, userIdPlus, logInUser, logOutUser, devSpy 
 import express from "express";
 var route = express.Router();
 
+// midllewares
+
+let MidsAccCreation = [midVerifyNameAndPass, midVerifyRPass, midVerifyLenghtAndAvailability];
+let MidsLogin = [midVerifyNameAndPass, midVerifyAccount];
 // rotas
 
-route.get("/login", midVerifyNameAndPass, midVerifyAccount, (req: any, res: any) => {
+route.get("/login", MidsLogin, (req: any, res: any) => {
     let name = req.body.name as string;
     let pass = req.body.pass as string;
 
@@ -25,7 +29,7 @@ route.get("/login", midVerifyNameAndPass, midVerifyAccount, (req: any, res: any)
     });
 });
 
-route.post("/create/", midVerifyNameAndPass, midVerifyRPass, midVerifyLenghtAndAvailability, FUNmidPassAlreadyExists, (req: any, res: any) => {
+route.post("/create/", MidsAccCreation, (req: any, res: any) => {
     spyApi(req);
     console.log("entrou na rota");
     let name = req.body.name as string;
@@ -40,8 +44,8 @@ route.post("/create/", midVerifyNameAndPass, midVerifyRPass, midVerifyLenghtAndA
     userIdPlus();
 
     res.status(201).send({
-        Mensagem: `Conta de ${name} criada com sucesso`,
-        Dados: {
+        mensagem: `Conta de ${name} criada com sucesso`,
+        dados: {
             id: newAcc.id,
             name: name,
             pass: hidePass(pass),

@@ -120,7 +120,7 @@ let FUNmidPassAlreadyExists = (req: Request, res: Response, next: NextFunction) 
     for (const user of database) {
         if (user.pass == pass) {
             return res.status(418).send({
-                mensagem: `A senha informada já está sendo utilizada por ${user.name}.`,
+                mensagem: `A senha informada já está sendo utilizada pelo usuário ${user.name}.`,
             });
         }
     }
