@@ -62,6 +62,12 @@ function PushTask(task: Itask, user: Iuser, position: number) {
 }
 
 function editTask(oldTask: Itask, description: string, detail: string) {
+    console.log(`
+    caiu no editTask
+    id: ${oldTask.id}
+    desc: ${description}
+    det: ${detail}
+    `);
     let task = {
         id: oldTask.id,
         description: description,
@@ -75,6 +81,13 @@ function saveEditedTask(name: string, description: string, detail: string, index
     let oldTask = user.taskList[index];
     let newTask = editTask(oldTask, description, detail);
     user.taskList[index] = newTask;
+    console.log(`
+    caiu no saveEditedTask
+    index: ${index}
+    old: ${oldTask}
+    new: ${newTask}
+    user: ${user}
+    `);
     return;
 }
 
