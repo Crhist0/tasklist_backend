@@ -24,6 +24,7 @@ let database: Iuser[] = [
                 detail: "detail test 1",
             },
         ],
+        token: "00000000-0000-0000-0000-000000000000",
     },
 ];
 function databaseIncrement(newUser: Iuser): void {

@@ -61,6 +61,21 @@ route.get("/dev", (req: any, res: any) => {
     });
 });
 
+route.post("/addTask/", (req, res) => {
+    let name = req.body.name;
+    let description = req.body.description;
+    let detail = req.body.detail;
+
+    fetchAccount(name);
+
+    res.status(201).send({
+        Mensagem: "ok",
+        Dados: {
+            req,
+        },
+    });
+});
+
 // route.delete("")
 
 export { route };

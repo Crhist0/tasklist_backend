@@ -1,5 +1,6 @@
 import { userId, taskId, database } from "./data";
 import { Request } from "express";
+import { v4 as uuidv4 } from "uuid";
 
 // let name = document.getElementById("name");
 // let pass = document.getElementById("pass");
@@ -62,6 +63,7 @@ interface Iuser {
     name: string;
     pass: string;
     taskList: Itask[];
+    token: string;
 }
 
 interface ILuser {
@@ -76,12 +78,14 @@ class Cuser implements Iuser {
     name: string;
     pass: string;
     taskList: Itask[];
+    token: string;
     constructor(name: string, pass: string) {
         this.id = userId;
         this.birth = createNewBirth();
         this.name = name;
         this.pass = pass;
         this.taskList = [];
+        this.token = uuidv4();
     }
 
     taskPush(task: Itask): void {
