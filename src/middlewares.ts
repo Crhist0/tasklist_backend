@@ -140,8 +140,7 @@ let confirmAccountOwnershipToCreate = (req: Request, res: Response, next: NextFu
 let confirmAccountOwnershipToDelete = (req: Request, res: Response, next: NextFunction) => {
     let name = req.params.name;
     let token = req.params.token;
-    console.log("name: " + name);
-    console.log("token: " + token);
+    console.log(req.params);
 
     let acc = fetchAccount(name);
 
