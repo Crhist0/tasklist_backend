@@ -85,6 +85,15 @@ route.put("/saveEdit/", MidsSaveEdit, (req: any, res: any) => {
 route.delete("/deleteTask/", (req: any, res: any) => {
     let name = req.params.name;
     let index = req.params.index;
+
+    console.log(`
+    name: ${name}
+    index: ${index}
+    `);
+
+    console.log(`O usuário de IP "${req.ip}" interagiu via "${req.method}" na URL "${req.url}${req.path}" por protocolo "${req.protocol}",
+        Code: ${req.statusCode} - Message: ${req.statusMessage} - Complete: ${req.complete}`);
+
     deleteTask(name, index);
 
     return res.status(200).send({
