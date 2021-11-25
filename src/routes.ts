@@ -11,7 +11,7 @@ import {
 import { exportUser, PushTask, Cuser, hidePass, fetchAccount, Iuser, spyApi, generateTask, saveEditedTask, deleteTask } from "./util";
 import { databaseIncrement, devSpy } from "./data";
 
-import express from "express";
+import express, { Request } from "express";
 var route = express.Router();
 
 // midllewares
@@ -91,9 +91,9 @@ route.put("/saveEdit/", MidsSaveEdit, (req: any, res: any) => {
     });
 });
 
-route.delete("/deleteTask/", MidsDeleteTask, (req: any, res: any) => {
+route.delete("/deleteTask/:name/:taskIndex", MidsDeleteTask, (req: Request, res: any) => {
     let name = req.params.name;
-    let taskIndex = req.params.taskIndex;
+    let taskIndex = Number(req.params.taskIndex);
 
     deleteTask(name, taskIndex);
 
