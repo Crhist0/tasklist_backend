@@ -94,6 +94,8 @@ function saveEditedTask(name: string, description: string, detail: string, index
 
 function deleteTask(name: string, index: number) {
     let user: Iuser = fetchAccount(name);
+    console.log(user.taskList);
+
     user.taskList.splice(index, 1);
     return;
 }
