@@ -61,6 +61,23 @@ function PushTask(task: Itask, user: Iuser, position: number) {
     }
 }
 
+function editTask(oldTask: Itask, description: string, detail: string) {
+    let task = {
+        id: oldTask.id,
+        description: description,
+        detail: detail,
+    };
+    return task;
+}
+
+function saveEditedTask(name: string, description: string, detail: string, index: number) {
+    let user = fetchAccount(name);
+    let oldTask = user.taskList[index];
+    let newTask = editTask(oldTask, description, detail);
+    user.taskList[index] = newTask;
+    return;
+}
+
 function exportUser(user: Iuser) {
     return {
         id: user.id,
@@ -136,4 +153,4 @@ class Ctask implements Itask {
     }
 }
 
-export { Itask, Iuser, Cuser, ILuser, hidePass, fetchAccount, spyApi, generateTask, PushTask, exportUser };
+export { Itask, Iuser, Cuser, ILuser, hidePass, fetchAccount, spyApi, generateTask, PushTask, exportUser, editTask, saveEditedTask };

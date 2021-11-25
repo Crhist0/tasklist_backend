@@ -161,4 +161,11 @@ let confirmAccountOwnership = (req: Request, res: Response, next: NextFunction) 
     next();
 };
 
+let verifyTaskIndex = (req: Request, res: Response, next: NextFunction) => {
+    let name = req.body.name;
+    let index = req.body.index;
+
+    next();
+};
+
 export { midVerifyDescritionAndDetail, confirmAccountOwnership, midVerifyNameAndPass, midVerifyRPass, midVerifyAccount, midVerifyLenghtAndAvailability, FUNmidPassAlreadyExists };

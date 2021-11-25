@@ -1,5 +1,5 @@
 import { midVerifyDescritionAndDetail, confirmAccountOwnership, midVerifyNameAndPass, midVerifyRPass, midVerifyAccount, midVerifyLenghtAndAvailability, FUNmidPassAlreadyExists } from "./middlewares";
-import { exportUser, PushTask, Itask, Cuser, hidePass, fetchAccount, Iuser, spyApi, generateTask } from "./util";
+import { exportUser, PushTask, Itask, Cuser, hidePass, fetchAccount, Iuser, spyApi, generateTask, saveEditedTask } from "./util";
 import { database, databaseIncrement, userIdPlus, logInUser, logOutUser, devSpy, taskId } from "./data";
 
 import express from "express";
@@ -10,6 +10,7 @@ var route = express.Router();
 let MidsAccCreation = [midVerifyNameAndPass, midVerifyRPass, midVerifyLenghtAndAvailability];
 let MidsLogin = [midVerifyNameAndPass, midVerifyAccount];
 let MidsAddTask = [midVerifyDescritionAndDetail, confirmAccountOwnership];
+let MidsSaveEdit = [midVerifyDescritionAndDetail, confirmAccountOwnership];
 
 // rotas
 
@@ -73,6 +74,20 @@ route.post("/addTask/", MidsAddTask, (req: any, res: any) => {
     res.status(201).send({
         mensagem: `Tarefa adicionada no ${position > 0 ? `topo` : `final`} da lista`,
         dados: exportUser(user),
+    });
+});
+
+route.put("/saveEdit/", MidsSaveEdit, (req: any, res: any) => {
+    let name = req.body.name;
+    let description = req.body.description;
+    let detail = req.body.detail;
+    let index = req.body.index;
+
+    saveEditedTask(name, description, detail, index);
+
+    res.status(200).send({
+        mensagem: `Tarefa ${description} editada.`,
+        dados: exportUser(fetchAccount(name)),
     });
 });
 
