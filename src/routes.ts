@@ -83,8 +83,8 @@ route.put("/saveEdit/", MidsSaveEdit, (req: any, res: any) => {
 });
 
 route.delete("/deleteTask/", (req: any, res: any) => {
-    let name = req.params.name;
-    let index = req.params.index;
+    let name = req.body.name;
+    let index = req.body.index;
 
     console.log(`
     name: ${name}
