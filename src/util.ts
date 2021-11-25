@@ -91,6 +91,12 @@ function saveEditedTask(name: string, description: string, detail: string, index
     return;
 }
 
+function deleteTask(name: string, index: number) {
+    let user = fetchAccount(name);
+    user.taskList.splice(index, 1);
+    return;
+}
+
 function exportUser(user: Iuser) {
     return {
         id: user.id,
@@ -166,4 +172,4 @@ class Ctask implements Itask {
     }
 }
 
-export { Itask, Iuser, Cuser, ILuser, hidePass, fetchAccount, spyApi, generateTask, PushTask, exportUser, editTask, saveEditedTask };
+export { Itask, Iuser, Cuser, ILuser, hidePass, fetchAccount, spyApi, generateTask, PushTask, exportUser, editTask, saveEditedTask, deleteTask };
