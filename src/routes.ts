@@ -22,7 +22,7 @@ route.post("/login", MidsLogin, (req: any, res: any) => {
     logInUser(user);
 
     res.status(200).send({
-        mensagem: `Ok, logando na conta de ${name}`,
+        mensagem: `Logando na conta de ${name}`,
         dados: exportUser(user),
     });
 });
@@ -71,8 +71,8 @@ route.post("/addTask/", MidsAddTask, (req: any, res: any) => {
     PushTask(task, user, position);
 
     res.status(201).send({
-        Mensagem: `Tarefa adicionada no ${position > 0 ? `topo` : `final`} da lista`,
-        Dados: exportUser(user),
+        mensagem: `Tarefa adicionada no ${position > 0 ? `topo` : `final`} da lista`,
+        dados: exportUser(user),
     });
 });
 

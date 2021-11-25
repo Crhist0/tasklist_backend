@@ -154,7 +154,7 @@ let confirmAccountOwnership = (req: Request, res: Response, next: NextFunction) 
 
     if (acc.token != token) {
         return res.status(401).send({
-            titulo: `NÂO AUTORIZADO`,
+            titulo: `NÃO AUTORIZADO`,
             mensagem: `Você não deveria estar fazendo isso, faça login novamente.`,
         });
     }
