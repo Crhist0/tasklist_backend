@@ -23,7 +23,7 @@ route.post("/login", MidsLogin, (req: any, res: any) => {
         mensagem: `Ok, logando na conta de ${name}`,
         dados: {
             id: user.id,
-            nome: user.name,
+            name: user.name,
             taskList: user.taskList,
         },
     });
