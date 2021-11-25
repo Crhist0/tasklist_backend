@@ -1,5 +1,4 @@
-import { Iuser, ILuser } from "./util";
-import { v4 as uuidv4 } from "uuid";
+import { Iuser } from "./util";
 
 // "banco de dados"
 

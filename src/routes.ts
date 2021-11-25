@@ -82,10 +82,9 @@ route.put("/saveEdit/", MidsSaveEdit, (req: any, res: any) => {
     });
 });
 
-route.delete("/deleteTask/", MidsDeleteTask, (req: any, res: any) => {
+route.delete("/deleteTask/", confirmAccountOwnership, (req: any, res: any) => {
     let name = req.body.name;
     let index = req.body.index;
-
     deleteTask(name, index);
 
     return res.status(200).send({
