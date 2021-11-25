@@ -1,6 +1,6 @@
-import { midVerifyNameAndPass, midVerifyRPass, midVerifyAccount, midVerifyLenghtAndAvailability, FUNmidPassAlreadyExists } from "./middlewares";
-import { Cuser, hidePass, fetchAccount, Iuser, spyApi } from "./util";
-import { database, databaseIncrement, userIdPlus, logInUser, logOutUser, devSpy } from "./data";
+import { midVerifyDescritionAndDetail, confirmAccountOwnership, midVerifyNameAndPass, midVerifyRPass, midVerifyAccount, midVerifyLenghtAndAvailability, FUNmidPassAlreadyExists } from "./middlewares";
+import { exportUser, PushTask, Itask, Cuser, hidePass, fetchAccount, Iuser, spyApi, generateTask } from "./util";
+import { database, databaseIncrement, userIdPlus, logInUser, logOutUser, devSpy, taskId } from "./data";
 
 import express from "express";
 var route = express.Router();
@@ -9,6 +9,8 @@ var route = express.Router();
 
 let MidsAccCreation = [midVerifyNameAndPass, midVerifyRPass, midVerifyLenghtAndAvailability];
 let MidsLogin = [midVerifyNameAndPass, midVerifyAccount];
+let MidsAddTask = [midVerifyDescritionAndDetail, confirmAccountOwnership];
+
 // rotas
 
 route.post("/login", MidsLogin, (req: any, res: any) => {
@@ -21,12 +23,7 @@ route.post("/login", MidsLogin, (req: any, res: any) => {
 
     res.status(200).send({
         mensagem: `Ok, logando na conta de ${name}`,
-        dados: {
-            id: user.id,
-            name: user.name,
-            taskList: user.taskList,
-            token: user.token,
-        },
+        dados: exportUser(user),
     });
 });
 
@@ -62,18 +59,20 @@ route.get("/dev", (req: any, res: any) => {
     });
 });
 
-route.post("/addTask/", (req, res) => {
+route.post("/addTask/", MidsAddTask, (req: any, res: any) => {
     let name = req.body.name;
     let description = req.body.description;
     let detail = req.body.detail;
+    let position = req.body.position;
 
-    fetchAccount(name);
+    let task = generateTask(description, detail);
+    let user = fetchAccount(name);
+
+    PushTask(task, user, position);
 
     res.status(201).send({
-        Mensagem: "ok",
-        Dados: {
-            req,
-        },
+        Mensagem: `Tarefa adicionada no ${position > 0 ? `topo` : `final`} da lista`,
+        Dados: exportUser(user),
     });
 });
 

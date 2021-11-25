@@ -127,4 +127,38 @@ let FUNmidPassAlreadyExists = (req: Request, res: Response, next: NextFunction) 
     next();
 };
 
-export { midVerifyNameAndPass, midVerifyRPass, midVerifyAccount, midVerifyLenghtAndAvailability, FUNmidPassAlreadyExists };
+let midVerifyDescritionAndDetail = (req: Request, res: Response, next: NextFunction) => {
+    let description = req.body.description;
+    let detail = req.body.detail;
+    if (!description && !detail) {
+        return res.status(400).send({
+            mensagem: `Insira uma descrição e um detalhamento.`,
+        });
+    } else if (!description) {
+        return res.status(400).send({
+            mensagem: `Insira uma descrição.`,
+        });
+    } else if (!detail) {
+        return res.status(400).send({
+            mensagem: `Insira uma detail.`,
+        });
+    }
+    next();
+};
+
+let confirmAccountOwnership = (req: Request, res: Response, next: NextFunction) => {
+    let name = req.body.name;
+    let token = req.body.token;
+
+    let acc = fetchAccount(name);
+
+    if (acc.token != token) {
+        return res.status(401).send({
+            titulo: `NÂO AUTORIZADO`,
+            mensagem: `Você não deveria estar fazendo isso, faça login novamente.`,
+        });
+    }
+    next();
+};
+
+export { midVerifyDescritionAndDetail, confirmAccountOwnership, midVerifyNameAndPass, midVerifyRPass, midVerifyAccount, midVerifyLenghtAndAvailability, FUNmidPassAlreadyExists };

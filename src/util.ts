@@ -39,6 +39,33 @@ function spyApi(req: Request) {
     console.log(`O usuário de IP "${req.ip}" interagiu via "${req.method}" na URL "${req.url}${req.path}" por protocolo "${req.protocol}",
         Code: ${req.statusCode} - Message: ${req.statusMessage} - Complete: ${req.complete}`);
 }
+
+function generateTask(description: string, detail: string) {
+    let task = {
+        id: taskId,
+        description: description,
+        detail: detail,
+    };
+    return task;
+}
+
+function PushTask(task: Itask, user: Iuser, position: number) {
+    if (position > 0) {
+        user.taskList.unshift(task);
+    } else {
+        user.taskList.push(task);
+    }
+}
+
+function exportUser(user: Iuser) {
+    return {
+        id: user.id,
+        name: user.name,
+        taskList: user.taskList,
+        token: user.token,
+    };
+}
+
 // interfaces
 
 interface Ilogin {
@@ -105,4 +132,4 @@ class Ctask implements Itask {
     }
 }
 
-export { Iuser, Cuser, ILuser, hidePass, fetchAccount, spyApi };
+export { Itask, Iuser, Cuser, ILuser, hidePass, fetchAccount, spyApi, generateTask, PushTask, exportUser };
