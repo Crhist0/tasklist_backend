@@ -147,10 +147,8 @@ let midVerifyDescritionAndDetail = (req: Request, res: Response, next: NextFunct
 };
 
 let confirmAccountOwnership = (req: Request, res: Response, next: NextFunction) => {
-    console.log("caiu no accownership");
-
-    let name = req.body.name ? req.body.name : req.params.name;
-    let token = req.body.token ? req.body.token : req.params.token;
+    let name = req.body.name;
+    let token = req.body.token;
 
     let acc = fetchAccount(name);
 
