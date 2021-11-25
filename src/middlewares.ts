@@ -116,7 +116,7 @@ let midVerifyDescritionAndDetail = (req: Request, res: Response, next: NextFunct
         });
     } else if (!detail) {
         return res.status(400).send({
-            mensagem: `Insira uma detail.`,
+            mensagem: `Insira um detalhamento.`,
         });
     }
     next();
