@@ -50,6 +50,10 @@ function generateTask(description: string, detail: string) {
 }
 
 function PushTask(task: Itask, user: Iuser, position: number) {
+    console.log(task);
+    console.log(position);
+    console.log(user);
+
     if (position > 0) {
         user.taskList.unshift(task);
     } else {
