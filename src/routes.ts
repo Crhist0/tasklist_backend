@@ -1,4 +1,13 @@
-import { midVerifyDescritionAndDetail, confirmAccountOwnership, midVerifyNameAndPass, midVerifyRPass, midVerifyAccount, midVerifyLenghtAndAvailability, FUNmidPassAlreadyExists } from "./middlewares";
+import {
+    midVerifyDescritionAndDetail,
+    confirmAccountOwnershipToDelete,
+    confirmAccountOwnershipToCreate,
+    midVerifyNameAndPass,
+    midVerifyRPass,
+    midVerifyAccount,
+    midVerifyLenghtAndAvailability,
+    FUNmidPassAlreadyExists,
+} from "./middlewares";
 import { exportUser, PushTask, Cuser, hidePass, fetchAccount, Iuser, spyApi, generateTask, saveEditedTask, deleteTask } from "./util";
 import { databaseIncrement, devSpy } from "./data";
 
@@ -9,9 +18,9 @@ var route = express.Router();
 
 let MidsAccCreation = [midVerifyNameAndPass, midVerifyRPass, midVerifyLenghtAndAvailability];
 let MidsLogin = [midVerifyNameAndPass, midVerifyAccount];
-let MidsAddTask = [midVerifyDescritionAndDetail, confirmAccountOwnership];
-let MidsSaveEdit = [midVerifyDescritionAndDetail, confirmAccountOwnership];
-let MidsDeleteTask = [confirmAccountOwnership];
+let MidsAddTask = [midVerifyDescritionAndDetail, confirmAccountOwnershipToCreate];
+let MidsSaveEdit = [midVerifyDescritionAndDetail, confirmAccountOwnershipToCreate];
+let MidsDeleteTask = [confirmAccountOwnershipToDelete];
 
 // rotas
 
@@ -83,10 +92,10 @@ route.put("/saveEdit/", MidsSaveEdit, (req: any, res: any) => {
 });
 
 route.delete("/deleteTask/", MidsDeleteTask, (req: any, res: any) => {
-    let name = req.body.name;
-    let index = req.body.index;
+    let name = req.params.name;
+    let taskIndex = req.params.taskIndex;
 
-    deleteTask(name, index);
+    deleteTask(name, taskIndex);
 
     return res.status(200).send({
         mensagem: `Tarefa deletada.`,

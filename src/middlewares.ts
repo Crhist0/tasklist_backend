@@ -122,7 +122,7 @@ let midVerifyDescritionAndDetail = (req: Request, res: Response, next: NextFunct
     next();
 };
 
-let confirmAccountOwnership = (req: Request, res: Response, next: NextFunction) => {
+let confirmAccountOwnershipToCreate = (req: Request, res: Response, next: NextFunction) => {
     let name = req.body.name;
     let token = req.body.token;
 
@@ -137,4 +137,28 @@ let confirmAccountOwnership = (req: Request, res: Response, next: NextFunction) 
     next();
 };
 
-export { midVerifyDescritionAndDetail, confirmAccountOwnership, midVerifyNameAndPass, midVerifyRPass, midVerifyAccount, midVerifyLenghtAndAvailability, FUNmidPassAlreadyExists };
+let confirmAccountOwnershipToDelete = (req: Request, res: Response, next: NextFunction) => {
+    let name = req.params.name;
+    let token = req.params.token;
+
+    let acc = fetchAccount(name);
+
+    if (acc.token != token) {
+        return res.status(401).send({
+            titulo: `NÃO AUTORIZADO`,
+            mensagem: `Você não deveria estar fazendo isso, faça login novamente.`,
+        });
+    }
+    next();
+};
+
+export {
+    midVerifyDescritionAndDetail,
+    confirmAccountOwnershipToCreate,
+    confirmAccountOwnershipToDelete,
+    midVerifyNameAndPass,
+    midVerifyRPass,
+    midVerifyAccount,
+    midVerifyLenghtAndAvailability,
+    FUNmidPassAlreadyExists,
+};
