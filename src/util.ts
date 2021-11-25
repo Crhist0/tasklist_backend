@@ -2,9 +2,6 @@ import { userId, taskId, database, taskIdPlus } from "./data";
 import { Request } from "express";
 import { v4 as uuidv4 } from "uuid";
 
-// let name = document.getElementById("name");
-// let pass = document.getElementById("pass");
-
 // classes, interfaces e funções
 
 function createNewBirth(): Ibirth {
@@ -51,10 +48,6 @@ function generateTask(description: string, detail: string) {
 }
 
 function PushTask(task: Itask, user: Iuser, position: number) {
-    console.log(task);
-    console.log(position);
-    console.log(user);
-
     if (position > 0) {
         user.taskList.unshift(task);
     } else {
@@ -63,12 +56,6 @@ function PushTask(task: Itask, user: Iuser, position: number) {
 }
 
 function editTask(oldTask: Itask, description: string, detail: string) {
-    console.log(`
-    caiu no editTask
-    id: ${oldTask.id}
-    desc: ${description}
-    det: ${detail}
-    `);
     let task = {
         id: oldTask.id,
         description: description,
@@ -82,20 +69,11 @@ function saveEditedTask(name: string, description: string, detail: string, index
     let oldTask = user.taskList[index];
     let newTask = editTask(oldTask, description, detail);
     user.taskList[index] = newTask;
-    console.log(`
-    caiu no saveEditedTask
-    index: ${index}
-    old: ${oldTask}
-    new: ${newTask}
-    user: ${user}
-    `);
     return;
 }
 
 function deleteTask(name: string, index: number) {
     let user: Iuser = fetchAccount(name);
-    console.log(user.taskList);
-
     user.taskList.splice(index, 1);
     return;
 }

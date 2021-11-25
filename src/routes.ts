@@ -86,19 +86,6 @@ route.delete("/deleteTask/", MidsDeleteTask, (req: any, res: any) => {
     let name = req.body.name;
     let index = req.body.index;
 
-    console.log(`body`);
-    console.log(req.body);
-    console.log(req.params);
-    console.log(req.query);
-
-    console.log(`
-    name: ${name}
-    index: ${index}
-    `);
-
-    console.log(`O usuário de IP "${req.ip}" interagiu via "${req.method}" na URL "${req.url}${req.path}" por protocolo "${req.protocol}",
-        Code: ${req.statusCode} - Message: ${req.statusMessage} - Complete: ${req.complete}`);
-
     deleteTask(name, index);
 
     return res.status(200).send({
