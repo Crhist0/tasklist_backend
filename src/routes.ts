@@ -25,6 +25,7 @@ route.post("/login", MidsLogin, (req: any, res: any) => {
             id: user.id,
             name: user.name,
             taskList: user.taskList,
+            token: user.token,
         },
     });
 });
