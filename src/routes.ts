@@ -86,6 +86,11 @@ route.delete("/deleteTask/", (req: any, res: any) => {
     let name = req.body.name;
     let index = req.body.index;
 
+    console.log(`body`);
+    console.log(req.body);
+    console.log(req.params);
+    console.log(req.query);
+
     console.log(`
     name: ${name}
     index: ${index}
