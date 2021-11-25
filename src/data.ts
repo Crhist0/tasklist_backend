@@ -29,6 +29,7 @@ let database: Iuser[] = [
 ];
 function databaseIncrement(newUser: Iuser): void {
     database.push(newUser);
+    userIdPlus();
     return;
 }
 
@@ -44,27 +45,12 @@ let taskIdPlus: () => void = () => {
     return;
 };
 
-let loggedUser: ILuser[];
-function logInUser(User: Iuser): void {
-    loggedUser = [];
-    loggedUser.push({
-        user: User,
-        token: uuidv4(),
-    });
-    return;
-}
-function logOutUser(): void {
-    loggedUser = [];
-    return;
-}
-
 function devSpy() {
     return {
         userId,
         taskId,
-        loggedUser,
         database,
     };
 }
 
-export { userId, taskId, database, loggedUser, userIdPlus, taskIdPlus, databaseIncrement, logInUser, logOutUser, devSpy };
+export { userId, taskId, database, userIdPlus, taskIdPlus, databaseIncrement, devSpy };

@@ -1,4 +1,4 @@
-import { userId, taskId, database } from "./data";
+import { userId, taskId, database, taskIdPlus } from "./data";
 import { Request } from "express";
 import { v4 as uuidv4 } from "uuid";
 
@@ -46,6 +46,7 @@ function generateTask(description: string, detail: string) {
         description: description,
         detail: detail,
     };
+    taskIdPlus();
     return task;
 }
 
@@ -153,11 +154,6 @@ class Cuser implements Iuser {
         this.pass = pass;
         this.taskList = [];
         this.token = uuidv4();
-    }
-
-    taskPush(task: Itask): void {
-        this.taskList.push(task);
-        return;
     }
 }
 

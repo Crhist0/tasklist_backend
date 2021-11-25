@@ -1,6 +1,6 @@
 import { midVerifyDescritionAndDetail, confirmAccountOwnership, midVerifyNameAndPass, midVerifyRPass, midVerifyAccount, midVerifyLenghtAndAvailability, FUNmidPassAlreadyExists } from "./middlewares";
-import { exportUser, PushTask, Itask, Cuser, hidePass, fetchAccount, Iuser, spyApi, generateTask, saveEditedTask, deleteTask } from "./util";
-import { database, databaseIncrement, userIdPlus, logInUser, logOutUser, devSpy, taskId } from "./data";
+import { exportUser, PushTask, Cuser, hidePass, fetchAccount, Iuser, spyApi, generateTask, saveEditedTask, deleteTask } from "./util";
+import { databaseIncrement, devSpy } from "./data";
 
 import express from "express";
 var route = express.Router();
@@ -21,9 +21,7 @@ route.post("/login", MidsLogin, (req: any, res: any) => {
 
     let user: Iuser = fetchAccount(name);
 
-    logInUser(user);
-
-    res.status(200).send({
+    return res.status(200).send({
         mensagem: `Logando na conta de ${name}`,
         dados: exportUser(user),
     });
@@ -31,19 +29,11 @@ route.post("/login", MidsLogin, (req: any, res: any) => {
 
 route.post("/create/", MidsAccCreation, (req: any, res: any) => {
     spyApi(req);
-    console.log("entrou na rota");
     let name = req.body.name as string;
     let pass = req.body.pass as string;
-    console.log(`
-    name: ${name}
-    pass: ${pass}`);
-
     let newAcc = new Cuser(name, pass);
-    console.log(newAcc);
     databaseIncrement(newAcc);
-    userIdPlus();
-
-    res.status(201).send({
+    return res.status(201).send({
         mensagem: `Conta de ${name} criada com sucesso`,
         dados: {
             id: newAcc.id,
@@ -55,7 +45,7 @@ route.post("/create/", MidsAccCreation, (req: any, res: any) => {
 });
 
 route.get("/dev", (req: any, res: any) => {
-    res.status(200).send({
+    return res.status(200).send({
         mensagem: `Verificando database`,
         dados: devSpy(),
     });
@@ -72,7 +62,7 @@ route.post("/addTask/", MidsAddTask, (req: any, res: any) => {
 
     PushTask(task, user, position);
 
-    res.status(201).send({
+    return res.status(201).send({
         mensagem: `Tarefa adicionada no ${position > 0 ? `topo` : `final`} da lista`,
         dados: exportUser(user),
     });
@@ -86,7 +76,7 @@ route.put("/saveEdit/", MidsSaveEdit, (req: any, res: any) => {
 
     saveEditedTask(name, description, detail, index);
 
-    res.status(200).send({
+    return res.status(200).send({
         mensagem: `Tarefa ${description} editada.`,
         dados: exportUser(fetchAccount(name)),
     });
@@ -98,7 +88,7 @@ route.delete("/deleteTask/", MidsDeleteTask, (req: any, res: any) => {
 
     deleteTask(name, index);
 
-    res.status(200).send({
+    return res.status(200).send({
         mensagem: `Tarefa deletada.`,
         dados: exportUser(fetchAccount(name)),
     });
