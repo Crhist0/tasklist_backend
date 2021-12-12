@@ -26,7 +26,6 @@ let MidsDeleteTask = [confirmAccountOwnershipToDelete];
 
 route.post("/login", MidsLogin, (req: any, res: any) => {
     let name = req.body.name as string;
-    let pass = req.body.pass as string;
 
     let user: Iuser = fetchAccount(name);
 
