@@ -3,47 +3,6 @@
 // // import { exportUser, PushTask, hidePass, fetchAccount, generateTask, saveEditedTask, deleteTask } from "./util";
 // import { databaseIncrement, devSpy } from "./data";
 
-// import express, { Request } from "express";
-// var route = express.Router();
-
-// // midllewares
-
-// // rotas
-
-// route.post("/login", MidsLogin, (req: any, res: any) => {
-//     let name = req.body.name as string;
-
-//     let user: Iuser = fetchAccount(name);
-
-//     return res.status(200).send({
-//         mensagem: `Logando na conta de ${name}`,
-//         dados: exportUser(user),
-//     });
-// });
-
-// route.post("/create/", MidsAccCreation, (req: any, res: any) => {
-//     spyApi(req);
-//     let name = req.body.name as string;
-//     let pass = req.body.pass as string;
-//     let newAcc = new Cuser(name, pass);
-//     databaseIncrement(newAcc);
-//     return res.status(201).send({
-//         mensagem: `Conta de ${name} criada com sucesso`,
-//         dados: {
-//             id: newAcc.id,
-//             name: name,
-//             pass: hidePass(pass),
-//         },
-//     });
-// });
-
-// route.get("/dev", (req: any, res: any) => {
-//     return res.status(200).send({
-//         mensagem: `Verificando database`,
-//         dados: devSpy(),
-//     });
-// });
-
 // route.post("/addTask/", MidsAddTask, (req: any, res: any) => {
 //     let name = req.body.name;
 //     let description = req.body.description;
@@ -88,3 +47,28 @@
 // });
 
 // export { route };
+
+import { Request, Response, Router } from "express";
+import { UserController } from "../controllers/user-controller";
+import { createAccMids, loginMids } from "../middlewares/user-middlewares";
+
+export class UserRouter {
+    static getRoutes() {
+        const routes = Router();
+        const controller = new UserController();
+
+        // test routes
+
+        routes.get("/read", (req: Request, res: Response) => ((req.query.id as string) ? controller.readOneById(res, req.query.id as string) : controller.read(res)));
+
+        routes.post("/test", (req: Request, res: Response) => controller.login(res, req.body.name));
+
+        // fim test
+
+        routes.post("/create", createAccMids, (req: Request, res: Response) => controller.create(req, res));
+
+        routes.post("/login", loginMids, (req: Request, res: Response) => controller.login(res, req.body.name));
+
+        return routes;
+    }
+}

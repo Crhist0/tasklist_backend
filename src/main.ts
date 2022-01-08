@@ -1,8 +1,12 @@
-import express from "express";
-import cors from "cors";
-import { route } from "./routes";
+import "reflect-metadata";
+import { DatabaseConnection } from "./core/database/connections/connection";
+import { initServer } from "./core/presentation/server";
 
-const app = express();
-app.use(express.json(), cors(), route);
-
-app.listen(process.env.PORT || 8081, () => console.log("Server is running..."));
+DatabaseConnection.initConnection()
+    .then(() => {
+        initServer();
+    })
+    .catch((err) => {
+        console.log("Erro na comunicação com o banco de dados.");
+        console.log({ err });
+    });

@@ -3,47 +3,6 @@
 // // import { exportUser, PushTask, hidePass, fetchAccount, generateTask, saveEditedTask, deleteTask } from "./util";
 // import { databaseIncrement, devSpy } from "./data";
 
-// import express, { Request } from "express";
-// var route = express.Router();
-
-// // midllewares
-
-// // rotas
-
-// route.post("/login", MidsLogin, (req: any, res: any) => {
-//     let name = req.body.name as string;
-
-//     let user: Iuser = fetchAccount(name);
-
-//     return res.status(200).send({
-//         mensagem: `Logando na conta de ${name}`,
-//         dados: exportUser(user),
-//     });
-// });
-
-// route.post("/create/", MidsAccCreation, (req: any, res: any) => {
-//     spyApi(req);
-//     let name = req.body.name as string;
-//     let pass = req.body.pass as string;
-//     let newAcc = new Cuser(name, pass);
-//     databaseIncrement(newAcc);
-//     return res.status(201).send({
-//         mensagem: `Conta de ${name} criada com sucesso`,
-//         dados: {
-//             id: newAcc.id,
-//             name: name,
-//             pass: hidePass(pass),
-//         },
-//     });
-// });
-
-// route.get("/dev", (req: any, res: any) => {
-//     return res.status(200).send({
-//         mensagem: `Verificando database`,
-//         dados: devSpy(),
-//     });
-// });
-
 // route.post("/addTask/", MidsAddTask, (req: any, res: any) => {
 //     let name = req.body.name;
 //     let description = req.body.description;
@@ -88,3 +47,30 @@
 // });
 
 // export { route };
+
+import { Request, Response, Router } from "express";
+import { TaskController } from "../controllers/tasklist-controller";
+import { createTaskMids, editTaskMids } from "../middlewares/task-middlewares";
+
+export class TaskRouter {
+    static getRoutes() {
+        const routes = Router();
+        const controller = new TaskController();
+
+        // test routes
+
+        routes.get("/read", (req: Request, res: Response) => ((req.query.id as string) ? controller.readOneById(res, req.query.id as string) : controller.read(res)));
+
+        // fim test
+
+        routes.get("/readTasksByUserId", (req: Request, res: Response) => ((req.query.token as string) ? controller.readAllOfUserId(res, req.query.token as string) : controller.read(res)));
+
+        routes.post("/create", createTaskMids, (req: Request, res: Response) => controller.create(req.body.description, req.body.detail, req.body.token, res));
+
+        routes.put("/update", editTaskMids, (req: Request, res: Response) => controller.update(req.body.token, req.body.id, req.body.description, req.body.detail, res));
+
+        routes.delete("/delete", (req: Request, res: Response) => controller.delete(req.query.token as string, req.query.id as string, res));
+
+        return routes;
+    }
+}
