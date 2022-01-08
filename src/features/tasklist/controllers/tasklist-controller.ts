@@ -24,7 +24,7 @@ export class TaskController {
             })
             .catch((error) => {
                 return res.status(400).send({
-                    mensagem: "erroro ao tentar obter lista de tarefas.",
+                    mensagem: "Erro ao tentar obter lista de tarefas.",
                     error,
                 });
             });
@@ -73,7 +73,7 @@ export class TaskController {
                     });
                 });
         } catch (error) {
-            return res.status(400).send({
+            return res.status(401).send({
                 mensagem: "Token inválido, por favor faça login novamente.",
                 error,
             });
@@ -99,7 +99,7 @@ export class TaskController {
                 mensagem: `Tarefa ${newTaskEntity.description} criada com sucesso.`,
             });
         } catch (error) {
-            return res.status(400).send({
+            return res.status(401).send({
                 mensagem: "Erro ao tentar criar uma nova tarefa, faça login novamente.",
                 error,
             });
@@ -118,7 +118,7 @@ export class TaskController {
                 mensagem: `Tarefa ${description} editada.`,
             });
         } catch (error) {
-            return res.status(400).send({
+            return res.status(401).send({
                 mensagem: "Erro ao tentar editar a tarefa, faça login novamente.",
                 error,
             });
@@ -133,7 +133,7 @@ export class TaskController {
                 mensagem: `Tarefa deletada.`,
             });
         } catch (error) {
-            return res.status(400).send({
+            return res.status(401).send({
                 mensagem: "Erro ao tentar deletar a tarefa, faça login novamente.",
                 error,
             });
