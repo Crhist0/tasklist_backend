@@ -28,6 +28,6 @@ export class CreateAccountUsecase implements UseCase {
             taskList: [],
         };
 
-        await this.repository.create(newUser);
+        return await this.repository.create(newUser);
     }
 }

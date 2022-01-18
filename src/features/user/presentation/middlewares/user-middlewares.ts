@@ -1,4 +1,6 @@
 import { Request, Response, NextFunction } from "express";
+import { ControllerError } from "../../../../core/presentation/error/controller-error";
+import { serverError } from "../../../../core/presentation/helper/http-handler";
 
 // middlewares para as rotas de Usuário
 class UserImputValidations {
@@ -7,19 +9,13 @@ class UserImputValidations {
         let pass = req.body.pass as string;
 
         if (!name && !pass) {
-            return res.status(403).send({
-                mensagem: `Informe um nome e uma senha.`,
-            });
+            return serverError(res, new ControllerError("Informe um nome e uma senha.", 403));
         }
         if (!name) {
-            return res.status(403).send({
-                mensagem: `Informe um nome.`,
-            });
+            return serverError(res, new ControllerError("Informe um nome.", 403));
         }
         if (!pass) {
-            return res.status(403).send({
-                mensagem: `Informe uma senha.`,
-            });
+            return serverError(res, new ControllerError("Informe uma senha.", 403));
         }
 
         next();
@@ -30,14 +26,10 @@ class UserImputValidations {
         let Rpass = req.body.Rpass as string;
 
         if (!Rpass) {
-            return res.status(403).send({
-                mensagem: `Repita sua senha.`,
-            });
+            return serverError(res, new ControllerError("Repita sua senha.", 403));
         }
         if (Rpass != pass) {
-            return res.status(403).send({
-                mensagem: `Repita corretamente sua senha.`,
-            });
+            return serverError(res, new ControllerError("Repita corretamente sua senha.", 403));
         }
 
         next();
@@ -48,16 +40,11 @@ class UserImputValidations {
         let pass = req.body.pass as string;
 
         if (Array.from(name).length < 5) {
-            return res.status(403).send({
-                mensagem: `O nome ${name} não possui o mínimo de 5 caracteres.`,
-            });
+            return serverError(res, new ControllerError(`O nome ${name} não possui o mínimo de 5 caracteres.`, 403));
         }
         if (Array.from(pass).length < 5) {
-            return res.status(403).send({
-                mensagem: `A senha informada não possui o mínimo de 5 caracteres.`,
-            });
+            return serverError(res, new ControllerError(`A senha informada não possui o mínimo de 5 caracteres.`, 403));
         }
-
         next();
     };
 }

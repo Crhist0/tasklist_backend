@@ -15,7 +15,7 @@ export class UserCreateController implements Controller {
 
             let result = await this.createAccountUsecase.run(newUser);
 
-            return ok(res, result);
+            return ok(res, `Conta de '${newUser.name}' criada com sucesso.`);
         } catch (error) {
             return serverError(res, error);
         }
