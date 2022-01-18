@@ -1,8 +1,8 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { IPayload } from "../../../features/user/domain/usecases/login-usecase";
+import { ILoginPayload } from "../../../features/user/domain/usecases/login/models/login-payload";
 
 export class TokenGenerator {
-    static newToken(payload: IPayload): string {
+    static newToken(payload: ILoginPayload): string {
         return jwt.sign({ payload: payload }, process.env.SCRT as string, { expiresIn: "1h" });
     }
 

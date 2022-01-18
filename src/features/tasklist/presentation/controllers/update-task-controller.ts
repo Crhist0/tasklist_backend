@@ -2,7 +2,8 @@ import { ITask } from "../../domain/models/task";
 import { ok, serverError } from "../../../../core/presentation/helper/http-handler";
 import { Request, Response } from "express";
 import { Controller } from "../../../../core/presentation/contract/controller";
-import { IUpdateTaskParams, UpdateTaskUsecase } from "../../domain/usecases/update-task-usecase";
+import { UpdateTaskUsecase } from "../../domain/usecases/update-task/update-task-usecase";
+import { IUpdateTaskParams } from "../../domain/usecases/update-task/models/update-task-params";
 
 export class UpdateTaskController implements Controller {
     constructor(private updateTaskUsecase: UpdateTaskUsecase) {}

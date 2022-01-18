@@ -1,7 +1,8 @@
 import { ok, serverError } from "../../../../core/presentation/helper/http-handler";
 import { Request, Response } from "express";
 import { Controller } from "../../../../core/presentation/contract/controller";
-import { DeleteTaskUsecase, IDeleteTaskParams } from "../../domain/usecases/delete-task-usecase";
+import { DeleteTaskUsecase } from "../../domain/usecases/delete-task/delete-task-usecase";
+import { IDeleteTaskParams } from "../../domain/usecases/delete-task/models/delete-task-params";
 
 export class DeleteTaskController implements Controller {
     constructor(private deleteTaskUsecase: DeleteTaskUsecase) {}

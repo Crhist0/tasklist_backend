@@ -1,14 +1,10 @@
-import { TokenGenerator } from "./../../../../core/infra/adapters/jwt-adapter";
-import { UseCase } from "../../../../core/domain/contract/usecase";
-import { TaskRepository } from "../../infra/repository/task-repository";
-import { ITask } from "../models/task";
-import { GenerateUid } from "../../../../core/infra/adapters/uuidGenerator";
-import { NotAuthorizedError } from "../errors/token-error";
-
-export interface ICreateTaskParams {
-    token: string;
-    task: Partial<ITask>;
-}
+import { TokenGenerator } from "../../../../../core/infra/adapters/jwt-adapter";
+import { UseCase } from "../../../../../core/domain/contract/usecase";
+import { TaskRepository } from "../../../infra/repository/task-repository";
+import { ITask } from "../../models/task";
+import { GenerateUid } from "../../../../../core/infra/adapters/uuidGenerator";
+import { NotAuthorizedError } from "../../errors/token-error";
+import { ICreateTaskParams } from "./models/create-task-params";
 
 export class CreateTaskUsecase implements UseCase {
     constructor(private repository: TaskRepository) {}

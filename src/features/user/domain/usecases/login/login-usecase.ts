@@ -1,20 +1,12 @@
-import { UseCase } from "../../../../core/domain/contract/usecase";
-import { UserRepository } from "../../infra/repository/user-repository";
-import { IUser } from "../models/user";
-import { NotFoundError } from "../../../../core/domain/errors/notfound-error";
-import { ControllerError } from "../../../../core/presentation/error/controller-error";
-import { SecurePassword } from "../../infra/adapters/passCriptography";
-import { TokenGenerator } from "../../../../core/infra/adapters/jwt-adapter";
-
-export interface ILoginParams {
-    name: string;
-    pass: string;
-}
-
-export interface IPayload {
-    userId: string;
-    userName: string;
-}
+import { UseCase } from "../../../../../core/domain/contract/usecase";
+import { UserRepository } from "../../../infra/repository/user-repository";
+import { IUser } from "../../models/user";
+import { NotFoundError } from "../../../../../core/domain/errors/notfound-error";
+import { ControllerError } from "../../../../../core/presentation/error/controller-error";
+import { SecurePassword } from "../../../infra/adapters/passCriptography";
+import { TokenGenerator } from "../../../../../core/infra/adapters/jwt-adapter";
+import { ILoginParams } from "./models/login-params";
+import { ILoginPayload } from "./models/login-payload";
 
 export class LoginUseCase implements UseCase {
     constructor(private repository: UserRepository) {}
@@ -38,7 +30,7 @@ export class LoginUseCase implements UseCase {
         // gera um payload e envia no token jwt
         let userName = loggedUser.name;
         let userId = loggedUser.id;
-        let payload: IPayload = {
+        let payload: ILoginPayload = {
             userId,
             userName,
         };

@@ -1,13 +1,9 @@
-import { UseCase } from "../../../../core/domain/contract/usecase";
-import { TaskRepository } from "../../infra/repository/task-repository";
-import { ITask } from "../models/task";
-import { TokenGenerator } from "../../../../core/infra/adapters/jwt-adapter";
-import { NotAuthorizedError } from "../errors/token-error";
-
-export interface IUpdateTaskParams {
-    token: string;
-    task: Partial<ITask>;
-}
+import { UseCase } from "../../../../../core/domain/contract/usecase";
+import { TaskRepository } from "../../../infra/repository/task-repository";
+import { ITask } from "../../models/task";
+import { TokenGenerator } from "../../../../../core/infra/adapters/jwt-adapter";
+import { NotAuthorizedError } from "../../errors/token-error";
+import { IUpdateTaskParams } from "./models/update-task-params";
 
 export class UpdateTaskUsecase implements UseCase {
     constructor(private repository: TaskRepository) {}

@@ -1,9 +1,9 @@
 import { Request, Response, Router } from "express";
-import { DeleteTaskUsecase } from "./../../domain/usecases/delete-task-usecase";
+import { DeleteTaskUsecase } from "../../domain/usecases/delete-task/delete-task-usecase";
 import { UpdateTaskController } from "./../controllers/update-task-controller";
-import { UpdateTaskUsecase } from "../../domain/usecases/update-task-usecase";
-import { CreateTaskUsecase } from "../../domain/usecases/create-task-usecase";
-import { ReadUserTasksUsecase } from "../../domain/usecases/read-user-tasks-usecase";
+import { UpdateTaskUsecase } from "../../domain/usecases/update-task/update-task-usecase";
+import { CreateTaskUsecase } from "../../domain/usecases/create-task/create-task-usecase";
+import { ReadUserTasksUsecase } from "../../domain/usecases/read-user-tasks/read-user-tasks-usecase";
 import { TaskRepository } from "../../infra/repository/task-repository";
 import { CreateTaskController } from "../controllers/create-task-controller";
 import { ReadUserTasksController } from "../controllers/read-user-tasks-controller";

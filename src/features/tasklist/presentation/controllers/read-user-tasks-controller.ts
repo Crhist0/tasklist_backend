@@ -1,4 +1,4 @@
-import { ReadUserTasksUsecase } from "./../../domain/usecases/read-user-tasks-usecase";
+import { ReadUserTasksUsecase } from "../../domain/usecases/read-user-tasks/read-user-tasks-usecase";
 import { ok, serverError } from "../../../../core/presentation/helper/http-handler";
 import { Request, Response } from "express";
 import { Controller } from "../../../../core/presentation/contract/controller";

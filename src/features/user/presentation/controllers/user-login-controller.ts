@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ok, serverError } from "../../../../core/presentation/helper/http-handler";
 import { Controller } from "../../../../core/presentation/contract/controller";
-import { LoginUseCase } from "../../domain/usecases/login-usecase";
+import { LoginUseCase } from "../../domain/usecases/login/login-usecase";
 
 export class UserLoginController implements Controller {
     constructor(private loginUseCase: LoginUseCase) {}

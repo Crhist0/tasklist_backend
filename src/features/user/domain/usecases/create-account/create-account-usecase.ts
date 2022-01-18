@@ -1,19 +1,15 @@
-import { DuplicatedUserError } from "../errors/duplicated-user";
-import { UserRepository } from "../../infra/repository/user-repository";
-import { UseCase } from "./../../../../core/domain/contract/usecase";
-import { IUser } from "../models/user";
-import { SecurePassword } from "../../infra/adapters/passCriptography";
-import { GenerateUid } from "../../../../core/infra/adapters/uuidGenerator";
-
-export interface ICreateAccountBody {
-    name: string;
-    pass: string;
-}
+import { DuplicatedUserError } from "../../errors/duplicated-user";
+import { UserRepository } from "../../../infra/repository/user-repository";
+import { UseCase } from "../../../../../core/domain/contract/usecase";
+import { IUser } from "../../models/user";
+import { SecurePassword } from "../../../infra/adapters/passCriptography";
+import { GenerateUid } from "../../../../../core/infra/adapters/uuidGenerator";
+import { ICreateAccountParams } from "./models/create-account-params";
 
 export class CreateAccountUsecase implements UseCase {
     constructor(private repository: UserRepository) {}
 
-    async run(data: ICreateAccountBody) {
+    async run(data: ICreateAccountParams) {
         // verifica duplicidade de contas
         let arrayDeUsers = (await this.repository.findOneByName(data.name)) as IUser[];
         let user = arrayDeUsers[0];

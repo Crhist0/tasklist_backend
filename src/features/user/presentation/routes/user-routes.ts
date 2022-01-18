@@ -3,8 +3,8 @@ import { UserRepository } from "../../infra/repository/user-repository";
 import { UserCreateController } from "../controllers/user-create-controller";
 import { UserLoginController } from "../controllers/user-login-controller";
 import { createAccMids, loginMids } from "../middlewares/user-middlewares";
-import { CreateAccountUsecase } from "../../domain/usecases/create-account-usecase";
-import { LoginUseCase } from "../../domain/usecases/login-usecase";
+import { CreateAccountUsecase } from "../../domain/usecases/create-account/create-account-usecase";
+import { LoginUseCase } from "../../domain/usecases/login/login-usecase";
 
 export class UserRouter {
     static getRoutes() {

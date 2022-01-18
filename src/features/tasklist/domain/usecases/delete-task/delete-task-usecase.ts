@@ -1,13 +1,9 @@
-import { UseCase } from "../../../../core/domain/contract/usecase";
-import { TaskRepository } from "../../infra/repository/task-repository";
-import { ITask } from "../models/task";
-import { TokenGenerator } from "../../../../core/infra/adapters/jwt-adapter";
-import { NotAuthorizedError } from "../errors/token-error";
-
-export interface IDeleteTaskParams {
-    token: string;
-    id: string;
-}
+import { UseCase } from "../../../../../core/domain/contract/usecase";
+import { TaskRepository } from "../../../infra/repository/task-repository";
+import { ITask } from "../../models/task";
+import { TokenGenerator } from "../../../../../core/infra/adapters/jwt-adapter";
+import { NotAuthorizedError } from "../../errors/token-error";
+import { IDeleteTaskParams } from "./models/delete-task-params";
 
 export class DeleteTaskUsecase implements UseCase {
     constructor(private repository: TaskRepository) {}
