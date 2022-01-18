@@ -3,6 +3,7 @@ import { UseCase } from "../../../../core/domain/contract/usecase";
 import { TaskRepository } from "../../infra/repository/task-repository";
 import { ITask } from "../models/task";
 import { GenerateUid } from "../../../../core/infra/adapters/uuidGenerator";
+import { NotAuthorizedError } from "../errors/token-error";
 
 export interface ICreateTaskParams {
     token: string;
@@ -30,7 +31,7 @@ export class CreateTaskUsecase implements UseCase {
 
             return savedTask;
         } catch (error) {
-            return error;
+            throw new NotAuthorizedError();
         }
     }
 }

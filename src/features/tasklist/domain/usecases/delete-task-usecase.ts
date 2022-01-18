@@ -21,7 +21,7 @@ export class DeleteTaskUsecase implements UseCase {
 
             return deletedTask;
         } catch (error) {
-            return error;
+            throw new NotAuthorizedError();
         }
     }
 }
