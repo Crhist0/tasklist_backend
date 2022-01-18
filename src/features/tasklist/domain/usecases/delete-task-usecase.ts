@@ -2,6 +2,7 @@ import { UseCase } from "../../../../core/domain/contract/usecase";
 import { TaskRepository } from "../../infra/repository/task-repository";
 import { ITask } from "../models/task";
 import { TokenGenerator } from "../../../../core/infra/adapters/jwt-adapter";
+import { NotAuthorizedError } from "../errors/token-error";
 
 export interface IDeleteTaskParams {
     token: string;
