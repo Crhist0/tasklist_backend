@@ -5,8 +5,8 @@ module.exports = {
     entities: [process.env.ENTITIES_DIR],
     migrations: [process.env.MIGRATIONS_DIR],
     cli: {
-        entitiesDir: "src/core/database/entities",
-        migrationsDir: "src/core/database/migrations",
+        entitiesDir: "src/core/infra/database/entities",
+        migrationsDir: "src/core/infra/database/migrations",
     },
     subscribers: [],
     extra: {
