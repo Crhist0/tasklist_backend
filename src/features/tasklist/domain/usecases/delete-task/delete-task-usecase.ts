@@ -18,11 +18,7 @@ export class DeleteTaskUsecase implements UseCase {
             let deletedTask: ITask[] = await this.repository.delete(data.id);
 
             // bot de telegram
-            new TelegramBot().sendMessage(`
-            Tarefa deletada:
-Usuário: '${decoded.payload.userName}'
-            `);
-            // fim bot;
+            new TelegramBot().deleteTaskMessage(decoded.payload.userName);
 
             return deletedTask;
         } catch (error) {

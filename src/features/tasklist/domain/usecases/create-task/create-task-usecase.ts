@@ -27,13 +27,7 @@ export class CreateTaskUsecase implements UseCase {
             let savedTask = await this.repository.create(newTask);
 
             // bot de telegram
-            new TelegramBot().sendMessage(`
-            Nova tarefa criada:
-Usuário: '${decoded.payload.userName}'
-Descrição: '${newTask.description}'
-Detalhamento: '${newTask.detail}'
-            `);
-            // fim bot;
+            new TelegramBot().newTaskMessage(decoded.payload.userName, newTask.description, newTask.detail);
 
             return savedTask;
         } catch (error) {

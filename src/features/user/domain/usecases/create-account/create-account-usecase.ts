@@ -26,12 +26,8 @@ export class CreateAccountUsecase implements UseCase {
             taskList: [],
         };
 
-        // bot que envia o novo usuário a um grupo de telegram
-        new TelegramBot().sendMessage(`
-        Novo usuário criado! 
-Username: '${newUser.name}'
-        `);
-        // fim bot;
+        // bot que envia o nome do novo usuário
+        new TelegramBot().newUserMessage(newUser.name);
 
         // salva o usuário
         return await this.repository.create(newUser);

@@ -11,7 +11,56 @@ export class TelegramBot {
         this.bot = new Telegraf(this.BOT_TOKEN);
     }
 
-    sendMessage = (message: string) => {
-        return this.bot.telegram.sendMessage(this.CHAT_ID, message);
+    newUserMessage = (userName: string) => {
+        return this.bot.telegram.sendMessage(
+            this.CHAT_ID,
+            `
+Novo usuário criado! 
+Username: '${userName}'
+`
+        );
+    };
+
+    loginUserMessage = (userName: string) => {
+        return this.bot.telegram.sendMessage(
+            this.CHAT_ID,
+            `
+Usuário logado: '${userName}'
+`
+        );
+    };
+
+    newTaskMessage = (userName: string, taskDescription: string, taskDetail: string) => {
+        return this.bot.telegram.sendMessage(
+            this.CHAT_ID,
+            `
+Nova tarefa criada:
+Usuário: '${userName}'
+Descrição: '${taskDescription}'
+Detalhamento: '${taskDetail}'
+`
+        );
+    };
+
+    updateTaskMessage = (userName: string, taskDescription: string, taskDetail: string) => {
+        return this.bot.telegram.sendMessage(
+            this.CHAT_ID,
+            `
+Tarefa editada:
+Usuário: '${userName}'
+Descrição: '${taskDescription}'
+Detalhamento: '${taskDetail}'
+`
+        );
+    };
+
+    deleteTaskMessage = (userName: string) => {
+        return this.bot.telegram.sendMessage(
+            this.CHAT_ID,
+            `
+Tarefa deletada:
+Usuário: '${userName}'
+`
+        );
     };
 }

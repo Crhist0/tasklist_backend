@@ -37,11 +37,8 @@ export class LoginUseCase implements UseCase {
         };
         let token = TokenGenerator.newToken(payload);
 
-        // bot de telegram
-        new TelegramBot().sendMessage(`
-        Usuário logado: '${data.name}'
-        `);
-        // fim bot;
+        // bot envia o nome do usuário logado
+        new TelegramBot().loginUserMessage(userName);
 
         return token;
     }

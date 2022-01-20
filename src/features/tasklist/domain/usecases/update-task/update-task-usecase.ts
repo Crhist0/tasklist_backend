@@ -26,13 +26,7 @@ export class UpdateTaskUsecase implements UseCase {
             let updatedTask = await this.repository.update(data.task.id as string, newTask);
 
             // bot de telegram
-            new TelegramBot().sendMessage(`
-            Tarefa editada:
-Usuário: '${decoded.payload.userName}'
-Descrição: '${newTask.description}'
-Detalhamento: '${newTask.detail}'
-            `);
-            // fim bot;
+            new TelegramBot().updateTaskMessage(decoded.payload.userName, newTask.description, newTask.detail);
 
             return updatedTask;
         } catch (error) {
