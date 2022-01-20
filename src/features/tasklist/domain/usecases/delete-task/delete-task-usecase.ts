@@ -21,8 +21,6 @@ export class DeleteTaskUsecase implements UseCase {
             new TelegramBot().sendMessage(`
             Tarefa deletada:
 Usuário: '${decoded.payload.userName}'
-ID da tarefa: '${data.id}'
-Data: '${new Date()}'
             `);
             // fim bot;
 

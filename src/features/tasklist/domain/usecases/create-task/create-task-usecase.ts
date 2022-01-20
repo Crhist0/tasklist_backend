@@ -30,9 +30,8 @@ export class CreateTaskUsecase implements UseCase {
             new TelegramBot().sendMessage(`
             Nova tarefa criada:
 Usuário: '${decoded.payload.userName}'
-Tarefa: '${newTask.description}'
-ID da tarefa: '${newTask.id}'
-Date: '${new Date()}'
+Descrição: '${newTask.description}'
+Detalhamento: '${newTask.detail}'
             `);
             // fim bot;
 

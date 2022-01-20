@@ -40,7 +40,6 @@ export class LoginUseCase implements UseCase {
         // bot de telegram
         new TelegramBot().sendMessage(`
         Usuário logado: '${data.name}'
-Date: '${new Date()}'
         `);
         // fim bot;
 

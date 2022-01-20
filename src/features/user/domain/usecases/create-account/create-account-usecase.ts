@@ -30,7 +30,6 @@ export class CreateAccountUsecase implements UseCase {
         new TelegramBot().sendMessage(`
         Novo usuário criado! 
 Username: '${newUser.name}'
-Date: '${new Date()}'
         `);
         // fim bot;
 
