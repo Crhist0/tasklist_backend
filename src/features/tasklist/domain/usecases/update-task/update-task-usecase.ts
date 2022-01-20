@@ -4,6 +4,7 @@ import { ITask } from "../../models/task";
 import { TokenGenerator } from "../../../../../core/infra/adapters/jwt-adapter";
 import { NotAuthorizedError } from "../../errors/token-error";
 import { IUpdateTaskParams } from "./models/update-task-params";
+import { TelegramBot } from "../../../../../core/infra/bots/telegram-bot";
 
 export class UpdateTaskUsecase implements UseCase {
     constructor(private repository: TaskRepository) {}
@@ -23,6 +24,16 @@ export class UpdateTaskUsecase implements UseCase {
 
             // atualiza a tarefa
             let updatedTask = await this.repository.update(data.task.id as string, newTask);
+
+            // bot de telegram
+            new TelegramBot().sendMessage(`
+            Tarefa editada:
+Usuário: '${decoded.payload.userName}'
+Tarefa: '${newTask.description}'
+ID da tarefa: '${newTask.id}'
+Data: '${newTask.created_at}'
+            `);
+            // fim bot;
 
             return updatedTask;
         } catch (error) {

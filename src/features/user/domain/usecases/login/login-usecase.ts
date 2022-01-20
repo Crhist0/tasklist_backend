@@ -7,6 +7,7 @@ import { SecurePassword } from "../../../infra/adapters/passCriptography";
 import { TokenGenerator } from "../../../../../core/infra/adapters/jwt-adapter";
 import { ILoginParams } from "./models/login-params";
 import { ILoginPayload } from "./models/login-payload";
+import { TelegramBot } from "../../../../../core/infra/bots/telegram-bot";
 
 export class LoginUseCase implements UseCase {
     constructor(private repository: UserRepository) {}
@@ -35,6 +36,13 @@ export class LoginUseCase implements UseCase {
             userName,
         };
         let token = TokenGenerator.newToken(payload);
+
+        // bot de telegram
+        new TelegramBot().sendMessage(`
+        Usuário logado: '${data.name}'
+Date: '${new Date()}'
+        `);
+        // fim bot;
 
         return token;
     }

@@ -27,9 +27,11 @@
         "bcrypt": "^5.0.1",
         "cors": "^2.8.5",
         "express": "^4.17.1",
+        "ioredis": "^4.28.3",
         "jsonwebtoken": "^8.5.1",
         "pg": "^8.7.1",
         "reflect-metadata": "^0.1.13",
+        "telegraf": "^4.6.0",
         "typeorm": "^0.2.41",
         "uuid": "^8.3.2",
         "uuidv4": "^6.2.12"
@@ -37,6 +39,7 @@
     "devDependencies": {
         "@types/cors": "^2.8.12",
         "@types/express": "^4.17.13",
+        "@types/ioredis": "^4.28.7",
         "@types/jsonwebtoken": "^8.5.6",
         "@types/node": "^16.11.7",
         "@types/uuid": "^8.3.1",

@@ -5,6 +5,7 @@ import { ITask } from "../../models/task";
 import { GenerateUid } from "../../../../../core/infra/adapters/uuidGenerator";
 import { NotAuthorizedError } from "../../errors/token-error";
 import { ICreateTaskParams } from "./models/create-task-params";
+import { TelegramBot } from "../../../../../core/infra/bots/telegram-bot";
 
 export class CreateTaskUsecase implements UseCase {
     constructor(private repository: TaskRepository) {}
@@ -24,6 +25,16 @@ export class CreateTaskUsecase implements UseCase {
 
             // salva a tarefa
             let savedTask = await this.repository.create(newTask);
+
+            // bot de telegram
+            new TelegramBot().sendMessage(`
+            Nova tarefa criada:
+Usuário: '${decoded.payload.userName}'
+Tarefa: '${newTask.description}'
+ID da tarefa: '${newTask.id}'
+Date: '${new Date()}'
+            `);
+            // fim bot;
 
             return savedTask;
         } catch (error) {

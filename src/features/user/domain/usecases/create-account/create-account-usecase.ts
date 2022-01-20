@@ -5,6 +5,7 @@ import { IUser } from "../../models/user";
 import { SecurePassword } from "../../../infra/adapters/passCriptography";
 import { GenerateUid } from "../../../../../core/infra/adapters/uuidGenerator";
 import { ICreateAccountParams } from "./models/create-account-params";
+import { TelegramBot } from "../../../../../core/infra/bots/telegram-bot";
 
 export class CreateAccountUsecase implements UseCase {
     constructor(private repository: UserRepository) {}
@@ -17,6 +18,7 @@ export class CreateAccountUsecase implements UseCase {
             throw new DuplicatedUserError(data.name);
         }
 
+        // cria o novo usuário
         let newUser: IUser = {
             id: GenerateUid.newUUID(),
             name: data.name,
@@ -24,6 +26,15 @@ export class CreateAccountUsecase implements UseCase {
             taskList: [],
         };
 
+        // bot que envia o novo usuário a um grupo de telegram
+        new TelegramBot().sendMessage(`
+        Novo usuário criado! 
+Username: '${newUser.name}'
+Date: '${new Date()}'
+        `);
+        // fim bot;
+
+        // salva o usuário
         return await this.repository.create(newUser);
     }
 }
