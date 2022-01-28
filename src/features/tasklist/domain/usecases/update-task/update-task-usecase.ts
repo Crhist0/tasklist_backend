@@ -1,13 +1,14 @@
+import { ICacheRepository } from "./../../../../../core/domain/model/cache-repository";
 import { UseCase } from "../../../../../core/domain/contract/usecase";
-import { TaskRepository } from "../../../infra/repository/task-repository";
 import { ITask } from "../../models/task";
 import { TokenGenerator } from "../../../../../core/infra/adapters/jwt-adapter";
 import { NotAuthorizedError } from "../../errors/token-error";
 import { IUpdateTaskParams } from "./models/update-task-params";
 import { TelegramBot } from "../../../../../core/infra/bots/telegram-bot";
+import { ITaskRepository } from "../../models/task-repository";
 
 export class UpdateTaskUsecase implements UseCase {
-    constructor(private repository: TaskRepository) {}
+    constructor(private repository: ITaskRepository, private cacheRepository: ICacheRepository) {}
 
     async run(data: IUpdateTaskParams) {
         try {
@@ -24,6 +25,9 @@ export class UpdateTaskUsecase implements UseCase {
 
             // atualiza a tarefa
             let updatedTask = await this.repository.update(data.task.id as string, newTask);
+
+            // apaga o cache
+            await this.cacheRepository.flush();
 
             // bot de telegram
             new TelegramBot().updateTaskMessage(decoded.payload.userName, newTask.description, newTask.detail);

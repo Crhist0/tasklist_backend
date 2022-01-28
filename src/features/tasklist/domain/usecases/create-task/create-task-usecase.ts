@@ -1,14 +1,15 @@
+import { ICacheRepository } from "./../../../../../core/domain/model/cache-repository";
 import { TokenGenerator } from "../../../../../core/infra/adapters/jwt-adapter";
 import { UseCase } from "../../../../../core/domain/contract/usecase";
-import { TaskRepository } from "../../../infra/repository/task-repository";
 import { ITask } from "../../models/task";
 import { GenerateUid } from "../../../../../core/infra/adapters/uuidGenerator";
 import { NotAuthorizedError } from "../../errors/token-error";
 import { ICreateTaskParams } from "./models/create-task-params";
 import { TelegramBot } from "../../../../../core/infra/bots/telegram-bot";
+import { ITaskRepository } from "../../models/task-repository";
 
 export class CreateTaskUsecase implements UseCase {
-    constructor(private repository: TaskRepository) {}
+    constructor(private repository: ITaskRepository, private cacheRepository: ICacheRepository) {}
 
     async run(data: ICreateTaskParams) {
         try {
@@ -25,6 +26,9 @@ export class CreateTaskUsecase implements UseCase {
 
             // salva a tarefa
             let savedTask = await this.repository.create(newTask);
+
+            // apaga o cache
+            await this.cacheRepository.flush();
 
             // bot de telegram
             new TelegramBot().newTaskMessage(decoded.payload.userName, newTask.description, newTask.detail);

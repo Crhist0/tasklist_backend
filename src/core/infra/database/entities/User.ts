@@ -17,6 +17,6 @@ export class User implements IUser {
     @Column({ length: 60 })
     pass: string;
 
-    @OneToMany(() => Task, (task) => task)
+    @OneToMany(() => Task, (task) => task.user_id)
     taskList: ITask[];
 }

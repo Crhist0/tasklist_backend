@@ -5,14 +5,14 @@ import { IUser } from "../../domain/models/user";
 import { IUserRepository } from "../../domain/models/user-repository";
 
 export class UserRepository implements IUserRepository {
-    private repository: Repository<User>;
+    private userRepository: Repository<IUser>;
 
     constructor() {
-        this.repository = DatabaseConnection.getConnection().manager.getRepository(User);
+        this.userRepository = DatabaseConnection.getConnection().manager.getRepository(User);
     }
 
     async findOneByName(name: string) {
-        return await this.repository
+        return await this.userRepository
             .find({ name: name })
             .then((userList) => {
                 return userList;
@@ -33,9 +33,9 @@ export class UserRepository implements IUserRepository {
     }
 
     async create(newUser: IUser) {
-        let newUserEntity = this.repository.create(newUser);
+        let newUserEntity = this.userRepository.create(newUser);
 
-        this.repository
+        this.userRepository
             .save(newUserEntity)
             .then((result) => {
                 return result;

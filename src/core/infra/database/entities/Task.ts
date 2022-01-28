@@ -16,7 +16,7 @@ export class Task implements ITask {
     @Column()
     detail: string;
 
-    @ManyToOne(() => User, (user) => user.id)
+    @ManyToOne(() => User, (user) => user.taskList)
     user_id: string;
 
     @CreateDateColumn({ type: "timestamp" })

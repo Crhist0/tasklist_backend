@@ -9,23 +9,25 @@ import { CreateTaskController } from "../controllers/create-task-controller";
 import { ReadUserTasksController } from "../controllers/read-user-tasks-controller";
 import { createTaskMids, editTaskMids } from "../middlewares/task-middlewares";
 import { DeleteTaskController } from "../controllers/delete-task-controller";
+import { CacheRepository } from "../../../../core/infra/repositories/cache-repository";
 
 export class TaskRouter {
     static getRoutes() {
         const routes = Router();
 
         const taskRepository = new TaskRepository();
+        const cacheRepository = new CacheRepository();
 
-        const readUserTasksUsecase = new ReadUserTasksUsecase(taskRepository);
+        const readUserTasksUsecase = new ReadUserTasksUsecase(taskRepository, cacheRepository);
         const readUserTasksController = new ReadUserTasksController(readUserTasksUsecase);
 
-        const createTaskUsecase = new CreateTaskUsecase(taskRepository);
+        const createTaskUsecase = new CreateTaskUsecase(taskRepository, cacheRepository);
         const createTaskController = new CreateTaskController(createTaskUsecase);
 
-        const updateTasksUsecase = new UpdateTaskUsecase(taskRepository);
+        const updateTasksUsecase = new UpdateTaskUsecase(taskRepository, cacheRepository);
         const updateTaskController = new UpdateTaskController(updateTasksUsecase);
 
-        const deleteTaskUsecase = new DeleteTaskUsecase(taskRepository);
+        const deleteTaskUsecase = new DeleteTaskUsecase(taskRepository, cacheRepository);
         const deleteTaskController = new DeleteTaskController(deleteTaskUsecase);
 
         routes.get("/readTasksByUserId", (req: Request, res: Response) => readUserTasksController.execute(req, res));

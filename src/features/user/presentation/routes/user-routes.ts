@@ -1,3 +1,4 @@
+import { CacheRepository } from "./../../../../core/infra/repositories/cache-repository";
 import { Request, Response, Router } from "express";
 import { UserRepository } from "../../infra/repository/user-repository";
 import { UserCreateController } from "../controllers/user-create-controller";
@@ -11,11 +12,12 @@ export class UserRouter {
         const routes = Router();
 
         const userRepository = new UserRepository();
+        const cacheRepository = new CacheRepository();
 
         const createAccountUsecase = new CreateAccountUsecase(userRepository);
         const createAccountController = new UserCreateController(createAccountUsecase);
 
-        const loginUsecase = new LoginUseCase(userRepository);
+        const loginUsecase = new LoginUseCase(userRepository, cacheRepository);
         const loginController = new UserLoginController(loginUsecase);
 
         routes.post("/", createAccMids, (req: Request, res: Response) => createAccountController.execute(req, res));
