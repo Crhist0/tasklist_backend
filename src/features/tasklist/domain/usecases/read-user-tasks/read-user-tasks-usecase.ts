@@ -1,10 +1,10 @@
-import { UseCase } from "../../../../../core/domain/contract/usecase";
-import { TokenGenerator } from "../../../../../core/infra/adapters/jwt-adapter";
-import { NotAuthorizedError } from "../../errors/token-error";
-import { ITask } from "../../models/task";
-import { IReadUserTasksParams } from "./models/read-user-tasks-params";
-import { ICacheRepository } from "../../../../../core/domain/model/cache-repository";
-import { ITaskRepository } from "../../models/task-repository";
+import { UseCase } from '../../../../../core/domain/contract/usecase';
+import { TokenGenerator } from '../../../../../core/infra/adapters/jwt-adapter';
+import { NotAuthorizedError } from '../../errors/token-error';
+import { ITask } from '../../models/task';
+import { IReadUserTasksParams } from './models/read-user-tasks-params';
+import { ICacheRepository } from '../../../../../core/domain/model/cache-repository';
+import { ITaskRepository } from '../../models/task-repository';
 
 export class ReadUserTasksUsecase implements UseCase {
     constructor(private repository: ITaskRepository, private cache_repository: ICacheRepository) {}
@@ -15,7 +15,9 @@ export class ReadUserTasksUsecase implements UseCase {
             let decoded = TokenGenerator.verifyToken(data.token);
 
             // verifica se possui cache primeiro
-            let cachedTaskList: ITask[] = await this.cache_repository.get(`user:${decoded.payload.userId}`);
+            let cachedTaskList: ITask[] | undefined = await this.cache_repository.get(
+                `user:${decoded.payload.userId}`
+            );
 
             // se não houver cache, procura no bd e salva no cache
             let taskList: ITask[] = [];

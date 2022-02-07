@@ -1,13 +1,13 @@
-import { DomainError } from "./../../../../../core/domain/errors/domain-error";
-import { UseCase } from "../../../../../core/domain/contract/usecase";
-import { IUser } from "../../models/user";
-import { NotFoundError } from "../../../../../core/domain/errors/notfound-error";
-import { SecurePassword } from "../../../infra/adapters/passCriptography";
-import { TokenGenerator } from "../../../../../core/infra/adapters/jwt-adapter";
-import { ILoginParams } from "./models/login-params";
-import { ILoginPayload } from "./models/login-payload";
-import { TelegramBot } from "../../../../../core/infra/bots/telegram-bot";
-import { IUserRepository } from "../../models/user-repository";
+import { DomainError } from './../../../../../core/domain/errors/domain-error';
+import { UseCase } from '../../../../../core/domain/contract/usecase';
+import { IUser } from '../../models/user';
+import { NotFoundError } from '../../../../../core/domain/errors/notfound-error';
+import { SecurePassword } from '../../../infra/adapters/passCriptography';
+import { TokenGenerator } from '../../../../../core/infra/adapters/jwt-adapter';
+import { ILoginParams } from './models/login-params';
+import { ILoginPayload } from './models/login-payload';
+import { TelegramBot } from '../../../../../core/infra/bots/telegram-bot';
+import { IUserRepository } from '../../models/user-repository';
 
 export class LoginUseCase implements UseCase {
     constructor(private repository: IUserRepository) {}
@@ -19,7 +19,8 @@ export class LoginUseCase implements UseCase {
         if (user[0] == undefined) throw new NotFoundError(`Perfil de nome '${data.name}'`);
 
         // verifica se a hash da senha do perfil é a mesma da hash da senha informada
-        if (!SecurePassword.compare(data.pass, user[0].pass)) throw new DomainError("Senha incorreta.", 403);
+        if (!SecurePassword.compare(data.pass, user[0].pass))
+            throw new DomainError('Senha incorreta.', 403);
 
         // retorna o user logado
         let loggedUser: IUser = await this.repository.login(data.name);
