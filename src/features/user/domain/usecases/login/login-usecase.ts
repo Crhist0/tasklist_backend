@@ -10,33 +10,33 @@ import { TelegramBot } from '../../../../../core/infra/bots/telegram-bot';
 import { IUserRepository } from '../../models/user-repository';
 
 export class LoginUseCase implements UseCase {
-    constructor(private repository: IUserRepository) {}
+  constructor(private repository: IUserRepository) {}
 
-    async run(data: ILoginParams) {
-        let user: IUser[] = await this.repository.findOneByName(data.name);
+  async run(data: ILoginParams) {
+    let user: IUser[] = await this.repository.findOneByName(data.name);
 
-        // verifica se existe perfil com o nome informado
-        if (user[0] == undefined) throw new NotFoundError(`Perfil de nome '${data.name}'`);
+    // verifica se existe perfil com o nome informado
+    if (user[0] == undefined) throw new NotFoundError(`Perfil de nome '${data.name}'`);
 
-        // verifica se a hash da senha do perfil é a mesma da hash da senha informada
-        if (!SecurePassword.compare(data.pass, user[0].pass))
-            throw new DomainError('Senha incorreta.', 403);
+    // verifica se a hash da senha do perfil é a mesma da hash da senha informada
+    if (!SecurePassword.compare(data.pass, user[0].pass))
+      throw new DomainError('Senha incorreta.', 403);
 
-        // retorna o user logado
-        let loggedUser: IUser = await this.repository.login(data.name);
+    // retorna o user logado
+    let loggedUser: Partial<IUser> = await this.repository.login(data.name);
 
-        // gera um payload e envia no token jwt
-        let userName = loggedUser.name;
-        let userId = loggedUser.id;
-        let payload: ILoginPayload = {
-            userId,
-            userName,
-        };
-        let token = TokenGenerator.newToken(payload);
+    // gera um payload e envia no token jwt
+    let userName = loggedUser.name as string;
+    let userId = loggedUser.id as string;
+    let payload: ILoginPayload = {
+      userId,
+      userName,
+    };
+    let token = TokenGenerator.newToken(payload);
 
-        // bot envia o nome do usuário logado
-        new TelegramBot().loginUserMessage(userName);
+    // bot envia o nome do usuário logado
+    new TelegramBot().loginUserMessage(userName);
 
-        return token;
-    }
+    return token;
+  }
 }
