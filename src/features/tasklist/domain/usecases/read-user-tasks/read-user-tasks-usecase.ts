@@ -7,35 +7,27 @@ import { ICacheRepository } from '../../../../../core/domain/model/cache-reposit
 import { ITaskRepository } from '../../models/task-repository';
 
 export class ReadUserTasksUsecase implements UseCase {
-    constructor(private repository: ITaskRepository, private cache_repository: ICacheRepository) {}
+  constructor(private repository: ITaskRepository, private cache_repository: ICacheRepository) {}
 
-    async run(data: IReadUserTasksParams) {
-        try {
-            // verifica se o token é válido
-            let decoded = TokenGenerator.verifyToken(data.token);
+  async run(data: IReadUserTasksParams) {
+    // pega o userId no payload do token
+    let { userId } = TokenGenerator.verifyToken(data.token).payload;
 
-            // verifica se possui cache primeiro
-            let cachedTaskList: ITask[] | undefined = await this.cache_repository.get(
-                `user:${decoded.payload.userId}`
-            );
+    // verifica se possui cache primeiro
+    let cachedTaskList: ITask[] | undefined = await this.cache_repository.get(`user:${userId}`);
 
-            // se não houver cache, procura no bd e salva no cache
-            let taskList: ITask[] = [];
-            if (cachedTaskList == undefined || cachedTaskList.length <= 0) {
-                // procura no bd
-                taskList = await this.repository.readAllOfId(decoded.payload.userId);
-                // salva no cache
-                await this.cache_repository.set(`user:${decoded.payload.userId}`, taskList);
-            } else {
-                //  se houver cache, usa ele
-                taskList = cachedTaskList;
-            }
-
-            return taskList;
-        } catch (error) {
-            console.log({ error });
-
-            throw new NotAuthorizedError();
-        }
+    // se não houver cache, procura no bd e salva no cache
+    let taskList: ITask[] = [];
+    if (cachedTaskList == undefined || cachedTaskList.length <= 0) {
+      // procura no bd
+      taskList = await this.repository.readAllOfId(userId);
+      // salva no cache
+      await this.cache_repository.set(`user:${userId}`, taskList);
+    } else {
+      //  se houver cache, usa ele
+      taskList = cachedTaskList;
     }
+
+    return taskList;
+  }
 }
