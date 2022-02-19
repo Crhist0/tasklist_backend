@@ -23,11 +23,11 @@ export class LoginUseCase implements UseCase {
       throw new DomainError('Senha incorreta.', 403);
 
     // retorna o user logado
-    let loggedUser: Partial<IUser> = await this.repository.login(data.name);
+    let loggedUser: Partial<IUser | undefined> = await this.repository.login(data.name);
 
     // gera um payload e envia no token jwt
-    let userName = loggedUser.name as string;
-    let userId = loggedUser.id as string;
+    let userName = loggedUser?.name as string;
+    let userId = loggedUser?.id as string;
     let payload: ILoginPayload = {
       userId,
       userName,
