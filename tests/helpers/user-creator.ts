@@ -12,3 +12,14 @@ export const CreateUserInDB: (userName?: string) => Promise<IUser> = async (user
     taskList: [],
   });
 };
+
+export const CreateUser: (userName?: string) => Promise<IUser> = async (userName?: string) => {
+  return {
+    id: GenerateUid.newUUID(),
+    name: userName ? userName : GenerateUid.newUUID(),
+    pass: SecurePassword.encrypt('any_pass'),
+    taskList: [],
+  };
+};
+
+
