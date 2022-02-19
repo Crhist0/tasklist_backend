@@ -16,19 +16,11 @@ export const serverError = (res: Response, error?: any) => {
       error: error.message,
       identifier: error.name,
     });
-  }
-
-  if (error instanceof Error) {
+  } else {
     return res.status(500).send({
       ok: false,
-      error: error.message,
-      identifier: error.name,
+      error,
+      identifier: 'Erro desconhecido.',
     });
   }
-
-  return res.status(500).send({
-    ok: false,
-    error,
-    identifier: 'Erro desconhecido.',
-  });
 };
