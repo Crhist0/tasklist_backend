@@ -1,38 +1,41 @@
+import { ITask } from './../../../../../src/features/tasklist/domain/models/task';
+import { CreateAccountUsecase } from './../../../../../src/features/user/domain/usecases/create-account/create-account-usecase';
 import { createServer } from './../../../../../src/core/presentation/server';
 import { RedisConnection } from './../../../../../src/core/infra/database/connections/redis';
-import { CreateUserInDB } from './../../../../helpers/user-creator';
+import { CreateUser, CreateUserInDB } from './../../../../helpers/user-creator';
 import { UserRepository } from '../../../../../src/features/user/infra/repository/user-repository';
 import { GenerateUid } from '../../../../../src/core/infra/adapters/uuidGenerator';
 import { SecurePassword } from '../../../../../src/features/user/infra/adapters/passCriptography';
 import { DatabaseConnection } from '../../../../../src/core/infra/database/connections/connection';
+import { IUserRepository } from '../../../../../src/features/user/domain/models/user-repository';
+import { IUser } from '../../../../../src/features/user/domain/models/user';
 
 // library of string validators and sanitizers
 import validator from 'validator';
 
-// // mocked class
-// export class MockUserRepository implements IUserRepository {
-//   async login(name: string): Promise<Partial<IUser>> {
-//     const newUser: IUser = await CreateUserInDB();
-//     const user: Partial<IUser> = {
-//       id: newUser.id,
-//       name: newUser.name,
-//       pass: newUser.pass,
-//     };
-//     return user;
-//   }
-//   async create(user: IUser): Promise<IUser> {
-//     let userP: IUser = {
-//       id: GenerateUid.newUUID(),
-//       name: 'data.name',
-//       pass: SecurePassword.encrypt('data.pass'),
-//       taskList: [],
-//     };
-//     return userP;
-//   }
-//   async findOneByName(name: string): Promise<IUser[]> {
-//     return [];
-//   }
-// }
+// mocked class
+export class MockUserRepository implements IUserRepository {
+  async login(name: string): Promise<Partial<IUser> | undefined> {
+    return fakeDb.find((user) => user.name == name);
+  }
+  async create(user: IUser): Promise<IUser> {
+    fakeDb.push(user);
+    return user;
+  }
+  async findOneByName(name: string): Promise<IUser[]> {
+    return [fakeDb.find((user) => user.name == name) as IUser];
+  }
+}
+
+let taskList: ITask[] = [];
+let fakeDb = [
+  {
+    id: 'test',
+    name: 'test',
+    pass: SecurePassword.encrypt('data.pass'),
+    taskList,
+  },
+];
 
 // repository test
 describe('feature User - teste de user-repository', () => {
