@@ -2,7 +2,6 @@ import { ICacheRepository } from './../../../../../core/domain/model/cache-repos
 import { UseCase } from '../../../../../core/domain/contract/usecase';
 import { ITask } from '../../models/task';
 import { TokenGenerator } from '../../../../../core/infra/adapters/jwt-adapter';
-import { NotAuthorizedError } from '../../errors/token-error';
 import { IUpdateTaskParams } from './models/update-task-params';
 import { TelegramBot } from '../../../../../core/infra/bots/telegram-bot';
 import { ITaskRepository } from '../../models/task-repository';
