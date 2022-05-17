@@ -8,8 +8,8 @@ import swaggerConfigs from '../../../swagger.json'
 export const createServer: () => Express = () => {
   const app: Express = express();
   app.use(express.json());
-  app.use(cors());
   app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerConfigs))
+  app.use(cors());
   makeRoutes(app);
   return app;
 };
