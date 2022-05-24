@@ -1,6 +1,6 @@
 # Back-end - lista de tarefas
 
-Back-end da aplicação 'taskList, trabalho do módulo 3 (backend I), 4 (banco de dados relacional), 5 (introdução a arquitetura de software), 6 (banco de dados não relacional), 7 (qualidade de software) e 9 (engenharia de software) do programa Starter da GrowDev.
+Back-end da aplicação 'taskList', trabalho do módulo 3 (backend I), 4 (banco de dados relacional), 5 (introdução a arquitetura de software), 6 (banco de dados não relacional), 7 (qualidade de software) e 9 (engenharia de software) do programa Starter da GrowDev.
 
 ## Features
 
