@@ -51,5 +51,5 @@ Inicie o servidor
 
 ## Feedback
 
-Caso tenha algum feedback ou opinião e queira compartilhar, escreva para mim no [Linkedin](https://www.linkedin.com/in/crhistian-de-oliveira-b35841161/) ou discord em [antiCrhistian#9049](https://www.howtogeek.com/778286/how-to-add-friends-on-discord/).
+Caso tenha algum feedback ou opinião e queira compartilhar, escreva para mim no [Linkedin](https://www.linkedin.com/in/crhistian-de-oliveira-b35841161/) ou discord em [antiCrhistian#9049](https://www.wikihow.com/Add-Friends-on-Discord).
 
