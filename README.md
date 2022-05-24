@@ -17,9 +17,9 @@ Também é possível verificar a documentação da API [aqui](ainda não esta pr
 
 Esse projeto foi produzido desde o módulo 3, no início do curso, e refatorado/aprimorado ao longo do curso inteiro. Nele coloquei em prática vários aprendizados como:
 - criação de API REST com express em TypeScript com gravação de dados em local storage e deploy no Heroku; 
-- implementação de banco de dados relacional com PostgreSql (via addon Heroku Postgres) para gravação de dados na nuvem, com uso do TypeORM; 
-- refatoração para arquitetura MVC, implementação de segurança com JWT e criação de BOT do Telegram; 
-- implementação de banco de dados não relacional com Redis (via local, e posteriomente via addon do Heroku 'Redis Enterprise Cloud') para cache de dados; 
+- implementação de banco de dados relacional com PostgreSql para gravação de dados na nuvem, com uso do TypeORM; 
+- arquitetura MVC, implementação de segurança com JWT e criação de BOT de Telegram; 
+- implementação de banco de dados não relacional com Redis para cache de dados; 
 - criação de testes unitários e integrados com JEST; 
 - criação de documentação com SwaggerUI.
 
